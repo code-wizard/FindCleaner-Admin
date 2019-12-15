@@ -13,6 +13,11 @@ body.vertical-layout.vertical-menu-modern .main-menu .navigation > li > a > i {
   font-size : 1.6rem;
 }
 
+body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu .navigation > li > a > i {
+  margin-right : 12px;
+  float : left;
+}
+
 body.vertical-layout.vertical-menu-modern .toggle-icon {
   margin-right : 1rem;
 }
