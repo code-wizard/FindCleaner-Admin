@@ -25,7 +25,17 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/assets/vendors/js/vendors.min.js",
+              "src/assets/vendors/js/charts/chartist.min.js",
+              "src/assets/vendors/js/charts/chartist-plugin-tooltip.min.js",
+              "src/assets/vendors/js/charts/raphael-min.js",
+              "src/assets/vendors/js/charts/morris.min.js",
+              "src/assets/vendors/js/timeline/horizontal-timeline.js",
+              "src/assets/js/core/app-menu.js",
+              "src/assets/js/core/app.js",
+              "src/assets/js/scripts/pages/dashboard-ecommerce.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

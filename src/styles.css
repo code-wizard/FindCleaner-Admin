@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import "assets/vendors/css/vendors.min.css";
+@import "assets/vendors/css/weather-icons/climacons.min.css";
+@import "assets/fonts/meteocons/style.css";
+@import "assets/vendors/css/charts/morris.css";
+@import "assets/vendors/css/charts/chartist.css";
+@import "assets/vendors/css/charts/chartist-plugin-tooltip.css";
+
+@import "assets/css/bootstrap.css";
+@import "assets/css/bootstrap-extended.css";
+@import "assets/css/colors.css";
+@import "assets/css/components.css";
+
+@import "assets/css/core/menu/menu-types/vertical-menu-modern.css";
+@import "assets/css/core/colors/palette-gradient.css";
+@import "assets/fonts/simple-line-icons/style.css";
+@import "assets/css/core/colors/palette-gradient.css";
+@import "assets/css/pages/timeline.css";
+@import "assets/css/pages/dashboard-ecommerce.css";
