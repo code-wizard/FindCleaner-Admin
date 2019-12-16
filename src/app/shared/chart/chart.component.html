@@ -1,0 +1,20 @@
+<div>
+  <div>
+    <p class="mb-2 text-center">{{title}}</p>
+    <div style="display: block" *ngIf="chartType === 'bar'">
+      <canvas baseChart [labels]="label" [datasets]="data" [chartType]="chartType" [options]="chartOptions"
+        [legend]="chartLegend">
+      </canvas>
+    </div>
+
+    <div style="display: block" *ngIf="chartType === 'doughnut'">
+      <canvas baseChart [datasets]="datasetColor" [labels]="label" [data]="data" [chartType]="chartType">
+      </canvas>
+    </div>
+  </div>
+</div>
+<!-- [datasets]="barChartData"
+[labels]="barChartLabels"
+[options]="barChartOptions" 
+[legend]="barChartLegend"
+[chartType]="barChartType" -->
