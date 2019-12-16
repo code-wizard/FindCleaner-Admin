@@ -1,21 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { EndpointsService } from '../shared/config/endpoints.service';
 
-
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
 })
-export class DashboardComponent implements OnInit {
-  callsInfo = {
-    data: [[40, 60]],
-    title: 'IOS and Android Downloads',
-    labels: ['IOS - 2, 40%', 'Andriod - 0, 60%'],
-  };
+export class UsersComponent implements OnInit {
 
   displayedColumns: string[] = [
     'index',
@@ -23,7 +15,8 @@ export class DashboardComponent implements OnInit {
     'lastName',
     'accountType',
     'email',
-    'phoneNumber'
+    'phoneNumber',
+    'action'
   ];
   dataSource: MatTableDataSource<any>;
 
@@ -50,5 +43,5 @@ export class DashboardComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-}
 
+}
