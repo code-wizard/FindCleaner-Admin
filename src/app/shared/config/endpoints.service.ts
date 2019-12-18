@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class EndpointsService {
   private apiUrl = environment.apiUrl;
-
+  public httpStatus = 'allCalls';
 
   private usersUrl = {
     getAllUsers: 'dashboard/users',
-    getOneUser: 'dashboard/user/',
+    getOneUser: 'dashboard/user/'
   };
 
   constructor(private http: HttpClient) {}
@@ -23,7 +23,4 @@ export class EndpointsService {
       alert(error);
     }
   }
-
-
-
 }

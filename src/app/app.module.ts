@@ -30,6 +30,8 @@ import { HeaderNavComponent } from './header-nav/header-nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartComponent } from './shared/chart/chart.component';
 import { UsersComponent } from './users/users.component';
+import { AuthcrudInterceptorService } from './auth/auth-crud-interceptor.service';
+import { UserViewComponent } from './users/user-view/user-view.component';
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { UsersComponent } from './users/users.component';
     HeaderNavComponent,
     DashboardComponent,
     ChartComponent,
-    UsersComponent
+    UsersComponent,
+    UserViewComponent
   ],
   imports: [
     AppRoutingModule,
@@ -64,7 +67,13 @@ import { UsersComponent } from './users/users.component';
     MatNativeDateModule,
     ChartsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthcrudInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
