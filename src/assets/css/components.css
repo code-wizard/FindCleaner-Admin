@@ -1739,7 +1739,7 @@ body.vertical-layout.vertical-menu.menu-expanded .main-menu-footer .content {
 .avatar {
   position : relative;
   display : inline-block;
-  width : 30px;
+  /* width : 30px; */
   white-space : nowrap;
   border-radius : 1000px;
   vertical-align : bottom;
