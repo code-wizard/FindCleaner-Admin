@@ -33,7 +33,13 @@
               "src/assets/vendors/js/charts/morris.min.js",
               "src/assets/vendors/js/timeline/horizontal-timeline.js",
               "src/assets/js/core/app-menu.js",
-              "src/assets/js/core/app.js"
+              "src/assets/js/core/app.js",
+
+
+              "src/assets/vendors/js/material-vendors.min.js",
+              "src/assets/vendors/js/tables/datatable/datatables.min.js",
+              "src/assets/js/scripts/pages/material-app.js",
+              "src/assets/js/scripts/tables/material-datatable.js"
             ],
             "es5BrowserSupport": true
           },
