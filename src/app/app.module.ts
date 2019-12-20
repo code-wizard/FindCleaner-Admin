@@ -32,6 +32,8 @@ import { ChartComponent } from './shared/chart/chart.component';
 import { UsersComponent } from './users/users.component';
 import { AuthcrudInterceptorService } from './auth/auth-crud-interceptor.service';
 import { UserViewComponent } from './users/user-view/user-view.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { TransactionViewComponent } from './transactions/transaction-view/transaction-view.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { UserViewComponent } from './users/user-view/user-view.component';
     DashboardComponent,
     ChartComponent,
     UsersComponent,
-    UserViewComponent
+    UserViewComponent,
+    TransactionsComponent,
+    TransactionViewComponent
   ],
   imports: [
     AppRoutingModule,

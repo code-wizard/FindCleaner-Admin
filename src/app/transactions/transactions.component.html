@@ -1,0 +1,97 @@
+<!-- All Users -->
+<div class="row">
+  <div id="recent-transactions" class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">ALL TRANSACTIONS </h4>
+        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+        <hr>
+        <button [routerLink]="['/transactionsInsight', '2']">Navigate</button>
+
+      </div>
+      <div class="card-content">
+        <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+
+        <div class="mat-elevation-z8 table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort id="recent-orders" class="table table-hover table-xl mb-0">
+
+            <!-- Index Column -->
+            <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Index </th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                {{row.index}}
+              </td>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                <span>{{row.description}}</span>
+              </td>
+            </ng-container>
+
+            <!-- ExpectedStartTime Column -->
+            <!-- <ng-container matColumnDef="expectedStartTime">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> StartTime </th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                <span>{{row.expectedStartTime}}</span>
+              </td>
+            </ng-container> -->
+
+
+            <!-- PaymentMode Column -->
+            <ng-container matColumnDef="paymentMode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> PaymentMode </th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                <span>{{row.paymentMode}}</span>
+              </td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                <span>{{row.status}}</span>
+              </td>
+            </ng-container>
+
+            <!-- dateOfDelivery Column -->
+            <ng-container matColumnDef="dateOfDelivery">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> DateOfDelivery</th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                <button type="button" class="btn btn-sm btn-outline-danger round">{{row.dateOfDelivery}}</button>
+              </td>
+            </ng-container>
+
+            <!-- TotalAmount Column -->
+            <ng-container matColumnDef="totalAmount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                <span>{{row.totalAmount}}</span>
+              </td>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
+              <td mat-cell *matCellDef="let element">
+                <button [routerLink]="['/admin-view', element.id]" mat-raised-button color="primary">View</button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+
+          <mat-paginator [pageSize]="10"></mat-paginator>
+          <!-- [pageSizeOptions]="[5, 10, 25, 100]" -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/ All Users -->
