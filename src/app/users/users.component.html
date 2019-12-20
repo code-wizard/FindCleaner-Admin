@@ -8,12 +8,12 @@
               <h4 class="card-title">ALL USERS </h4>
               <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
               <hr>
-              <button [routerLink]="['/usersInsight', '2']">Navigate</button>
-
             </div>
+
             <div class="card-content">
               <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;">
-                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                <input matInput (keyup)="applyFilter($event.target.value)"
+                (click)="checkPlaceHolder($event.target.value)" placeholder=" {{myplaceHolder}} ">
               </mat-form-field>
 
               <div class="mat-elevation-z8 table-responsive">
@@ -23,8 +23,8 @@
                   <!-- Index Column -->
                   <ng-container matColumnDef="index">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Index </th>
-                    <td mat-cell *matCellDef="let row" class="text-truncate">
-                      {{row.index}}
+                    <td mat-cell *matCellDef="let row; let i = index;" class="text-truncate">
+                      {{i + 1}}
                     </td>
                   </ng-container>
 
@@ -32,7 +32,7 @@
                   <ng-container matColumnDef="firstName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> FirstName </th>
                     <td mat-cell *matCellDef="let row" class="text-truncate">
-                      <span>{{row.name}}</span>
+                      <span>{{row.first_name}}</span>
                     </td>
                   </ng-container>
 
@@ -40,7 +40,7 @@
                   <ng-container matColumnDef="lastName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> LastName </th>
                     <td mat-cell *matCellDef="let row" class="text-truncate">
-                      <span>{{row.lastName}}</span>
+                      <span>{{row.last_name}}</span>
                     </td>
                   </ng-container>
 
@@ -64,7 +64,7 @@
                   <ng-container matColumnDef="phoneNumber">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
                     <td mat-cell *matCellDef="let row" class="text-truncate">
-                      <span>{{row.phoneNumber}}</span>
+                      <span>{{row.phone_number}}</span>
                     </td>
                   </ng-container>
 
@@ -85,6 +85,7 @@
                 <!-- [pageSizeOptions]="[5, 10, 25, 100]" -->
               </div>
             </div>
+
           </div>
         </div>
       </div>

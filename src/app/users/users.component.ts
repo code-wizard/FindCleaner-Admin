@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { EndpointsService } from '../shared/config/endpoints.service';
+import { EndpointsService } from '../services/config/endpoints.service';
 
 @Component({
   selector: 'app-users',
@@ -8,7 +8,7 @@ import { EndpointsService } from '../shared/config/endpoints.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-
+  myplaceHolder = 'Filter';
   displayedColumns: string[] = [
     'index',
     'firstName',
@@ -27,10 +27,10 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.endpoints.fetchAllUsers().subscribe((result: any) => {
-      console.log(result, 'reuls');
-      const { users } = result;
-      this.dataSource = new MatTableDataSource(users);
+    this.endpoints.fetchAllUsers().subscribe((res: any) => {
+      console.log(res, 'reuls');
+      const { results, count, next, previous } = res;
+      this.dataSource = new MatTableDataSource(results);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -38,10 +38,22 @@ export class UsersComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  checkPlaceHolder(value) {
+    console.log(value, 'vkfj')
+    if (value) {
+      this.myplaceHolder = null;
+      return;
+    } else {
+      this.myplaceHolder = 'Filter';
+      return;
+    }
+  }
+
+
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-user-view',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private genServ: GeneralService) { }
 
   ngOnInit() {
   }
+
+  handleUpdate() {
+    this.genServ.sweetAlertUpdates('Users');
+  }
+
+  handleDelete() {
+    this.genServ.sweetAlertDeletions('User');
+  }
+
+
 
 }
