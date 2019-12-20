@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 
 import { Injectable, OnInit } from '@angular/core';
-import { EndpointsService } from '../shared/config/endpoints.service';
+import { EndpointsService } from '../services/config/endpoints.service';
 
 @Injectable()
 export class AuthcrudInterceptorService implements HttpInterceptor, OnInit {

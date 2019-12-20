@@ -14,11 +14,24 @@ export class EndpointsService {
     getOneUser: 'dashboard/user/'
   };
 
+  private transactionsUrl = {
+    getAllTransactions: 'dashboard/all-transaction/',
+    getOneUser: 'dashboard/transaction/{service_id}'
+  };
+
   constructor(private http: HttpClient) {}
 
   fetchAllUsers() {
     try {
       return this.http.get(`${this.apiUrl}${this.usersUrl.getAllUsers}`);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  fetchAllTransactions() {
+    try {
+      return this.http.get(`${this.apiUrl}${this.transactionsUrl.getAllTransactions}`);
     } catch (error) {
       alert(error);
     }
