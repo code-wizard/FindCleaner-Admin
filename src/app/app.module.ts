@@ -34,6 +34,7 @@ import { AuthcrudInterceptorService } from './auth/auth-crud-interceptor.service
 import { UserViewComponent } from './users/user-view/user-view.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { TransactionViewComponent } from './transactions/transaction-view/transaction-view.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { TransactionViewComponent } from './transactions/transaction-view/transa
     UsersComponent,
     UserViewComponent,
     TransactionsComponent,
-    TransactionViewComponent
+    TransactionViewComponent,
+    SettingsComponent
   ],
   imports: [
     AppRoutingModule,
