@@ -51,7 +51,7 @@ export class UserViewComponent implements OnInit {
               res => {
                 console.log(res);
                 this.genServ.sweetAlertSucess(
-                  "User Update",
+                  "User Updated",
                   "Update Successful"
                 );
               },
