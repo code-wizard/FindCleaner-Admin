@@ -1,0 +1,75 @@
+<div class="app-content content" style="margin-bottom: 400px;">
+  <div class="content-header row">
+    <div class="content-header-dark bg-img col-12">
+      <div class="row" id="content-header-banner">
+        <div class="content-header-left col-md-9 col-12 mb-2" id="content-header-left">
+          <h3 class="content-header-title white" id="title">Settings</h3>
+          <div class="row breadcrumbs-top">
+            <div class="breadcrumb-wrapper col-12">
+              <ol class="breadcrumb" id="breadcrumb">
+                <li class="breadcrumb-item active"> Edit Settings
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="content-header-right col-md-3 col-12" id="content-header-right">
+          <div class="btn-group float-md-right" role="group">
+            <button class="btn btn-primary round  box-shadow-2 px-2" id="btnGroupDrop1" type="button"
+              routerLink="/adminDashboard">Dashboard</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-wrapper">
+    <div class="content-body">
+      <section id="currency-exchange">
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <div class="card text-center">
+              <div class="card-header mt-3">
+                <h1 class="text-bold-500 info">
+                  Change System Wide Settings
+                </h1>
+              </div>
+              <div class="card-subtitle p-0 mx-2">
+                <h5 class="text-bold-500"> Set the Default Currency and Base Amount</h5>
+              </div>
+              <div class="card-body mt-2">
+
+                <div class="row mr-5 ml-5">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="projectinput5">CURRENCY </label>
+                      <select id="projectinput5" name="currency" class="form-control"
+                        [(ngModel)]="settingsDetails.default_currency">
+                        <option value="none" selected="" disabled="">Select</option>
+                        <option value="Naira">Naira</option>
+                        <option value="Pounds">Pounds</option>
+                        <option value="Dollars">Dollars</option>
+                        <option value="Rupees">Rupees</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="projectinput6">SERVICE BASE PRICE </label>
+                      <input type="text" id="projectinput1" class="form-control" placeholder="Base Amount" name="amount"
+                        [(ngModel)]="settingsDetails.service_base_price">
+                    </div>
+                  </div>
+                </div>
+
+                <button type="button" class="btn btn-danger exchange my-2" (click)="handleUpdate()">
+                  <span class="font-medium-1"> Update </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

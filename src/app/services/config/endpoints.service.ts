@@ -19,6 +19,10 @@ export class EndpointsService {
     getOneUser: "dashboard/transaction/{service_id}"
   };
 
+  private settingsUrl = {
+    getUpdateSettings: "dashboard/settings/"
+  };
+
   constructor(private http: HttpClient) {}
 
   // Users Endpoint
@@ -51,8 +55,9 @@ export class EndpointsService {
       alert(error);
     }
   }
-  // Users Endpoint
+  // Users Endpoint Ends
 
+  // Transactions Endpoint
   fetchAllTransactions() {
     try {
       return this.http.get(
@@ -62,7 +67,32 @@ export class EndpointsService {
       alert(error);
     }
   }
+  // Transactions Endpoint Ends
 
+  // Settings Endpoints
+  fetchSettings() {
+    try {
+      return this.http.get(
+        `${this.apiUrl}${this.settingsUrl.getUpdateSettings}`
+      );
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  updateSettings(payload) {
+    try {
+      return this.http.put(
+        `${this.apiUrl}${this.settingsUrl.getUpdateSettings}`,
+        payload
+      );
+    } catch (error) {
+      alert(error);
+    }
+  }
+  // Settings Endpoints Ends
+
+  // Paginating
   fetchPaginationPage(url) {
     try {
       return this.http.get(url);

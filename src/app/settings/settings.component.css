@@ -1,0 +1,43 @@
+@import "../../assets/css/material.css";
+@import "../../assets/css/material-extended.css";
+@import "../../assets/css/material-colors.css";
+
+
+
+.content-header-dark {
+  background-image: url(../../assets/images/backgrounds/breadcrumb.png);
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  width: 100%;
+  background-color: #FFFFFF;
+  -webkit-box-shadow: 0 1px 15px 1px rgba(62, 57, 107, 0.07);
+  box-shadow: 0 1px 15px 1px rgba(62, 57, 107, 0.07);
+}
+
+#content-header-banner {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#content-header-left,
+#content-header-right {
+  margin-bottom: 0 !important;
+  padding: 0.7rem 0 0.3rem 4rem;
+}
+
+#title {
+  border-right: 1px solid #E4E5EC;
+  padding: 0.4rem 1.2rem 0.4rem 0;
+  margin-right: 1rem;
+  display: inline-block;
+}
+
+#content-header-right {
+  padding: 1.1rem 2rem 0.7rem;
+}
+
+#breadcrumb {
+  font-size: 1rem;
+  font-family: 'Quicksand', Georgia, 'Times New Roman', Times, serif;
+  background-color: transparent;
+  padding: 0 0 0.75rem 0rem;
+}

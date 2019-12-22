@@ -10,7 +10,7 @@
 
 
   <!-- BEGIN Body Content -->
-  <div class="app-content content">
+  <div class="app-content content" *ngIf="!settingsURL; else settingsPage">
     <div class="content-wrapper">
       <div class="content-header row mb-1">
       </div>
@@ -19,6 +19,10 @@
       </div>
     </div>
   </div>
+
+  <ng-template #settingsPage>
+    <router-outlet></router-outlet>
+  </ng-template>
   <!-- END Body Content -->
 
 
