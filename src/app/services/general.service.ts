@@ -1,22 +1,21 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import Swal from 'sweetalert2';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { BehaviorSubject, Observable, of } from "rxjs";
+import Swal from "sweetalert2";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class GeneralService {
-  expiredToken = new BehaviorSubject<any>('');
+  expiredToken = new BehaviorSubject<any>("");
   reloadService = new BehaviorSubject<boolean>(true);
-  signedInUserDetails = new BehaviorSubject<any>('');
-  tokenGenerated = new BehaviorSubject<string>('');
-  httpStatus = new BehaviorSubject<string>('firstload');
-  filterQueryClientIDs = new BehaviorSubject<string>('');
+  signedInUserDetails = new BehaviorSubject<any>("");
+  tokenGenerated = new BehaviorSubject<string>("");
+  httpStatus = new BehaviorSubject<string>("firstload");
+  filterQueryClientIDs = new BehaviorSubject<string>("");
 
   constructor(private router: Router, private http: HttpClient) {}
-
 
   // Alert Message for Adding informations into the database
   alert(data: any) {
@@ -32,7 +31,7 @@ export class GeneralService {
    * @param result - optional value to return as the observable result
    */
   public handleError = (error: any): Observable<any> => {
-    let message = '';
+    let message = "";
     if (error) {
       if (error.error) {
         message = error.error.message;
@@ -40,47 +39,55 @@ export class GeneralService {
         message = error.message;
       }
     }
-    console.log(message, ' General Error Message');
+    console.log(message, "General Error Message");
     return of(null);
-  }
+  };
 
   sweetAlertUpdates(type) {
     return Swal.fire({
       title: `Update ${type}?`,
-      type: 'question',
+      type: "question",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, update it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!"
     });
   }
 
   sweetAlertDeletions(type) {
     return Swal.fire({
       title: `Delete ${type}?`,
-      text: 'You won\'t be able to revert this!',
-      type: 'warning',
+      text: "You won't be able to revert this!",
+      type: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    });
+  }
+
+  sweetAlertHTML(action, html) {
+    Swal.fire({
+      title: action,
+      type: "warning",
+      html: html
     });
   }
 
   sweetAlertSucess(action, msg) {
-    return Swal.fire(`${action}`, msg, 'success');
+    return Swal.fire(`${action}`, msg, "success");
   }
 
   sweetAlertError(msg) {
-    return Swal.fire('Try again!', msg, 'error');
+    return Swal.fire("Try again!", msg, "error");
   }
 
   sweetAlertFieldValidation(fields) {
     return Swal.fire({
       text: `${fields}`,
-      type: 'warning',
-      confirmButtonColor: '#3085d6',
-      confirmButtonText: 'Okay'
+      type: "warning",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Okay"
     });
   }
 }
