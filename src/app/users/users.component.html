@@ -1,92 +1,95 @@
+<!-- All Users -->
+<div class="row">
+  <div id="recent-transactions" class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">ALL USERS </h4>
+        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+        <hr>
+      </div>
 
+      <div class="card-content">
+        <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;">
+          <input matInput (keyup)="applyFilter($event.target.value)"
+            (focus)="checkPlaceHolder($event.target.value, 'onFocus')"
+            (blur)="checkPlaceHolder($event.target.value, 'onBlur')" placeholder="{{myplaceHolder}}">
+        </mat-form-field>
 
-      <!-- All Users -->
-      <div class="row">
-        <div id="recent-transactions" class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">ALL USERS </h4>
-              <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-              <hr>
-            </div>
+        <div class="mat-elevation-z8 table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort id="recent-orders" class="table table-hover table-xl mb-0">
 
-            <div class="card-content">
-              <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;">
-                <input matInput (keyup)="applyFilter($event.target.value)"
-                (click)="checkPlaceHolder($event.target.value)" placeholder=" {{myplaceHolder}} ">
-              </mat-form-field>
+            <!-- Index Column -->
+            <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Index </th>
+              <td mat-cell *matCellDef="let row; let i = index;" class="text-truncate">
+                {{i + 1}}
+              </td>
+            </ng-container>
 
-              <div class="mat-elevation-z8 table-responsive">
-                <table mat-table [dataSource]="dataSource" matSort id="recent-orders"
-                  class="table table-hover table-xl mb-0">
+            <!-- First Name Column -->
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> FirstName </th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                <span>{{row.first_name}}</span>
+              </td>
+            </ng-container>
 
-                  <!-- Index Column -->
-                  <ng-container matColumnDef="index">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Index </th>
-                    <td mat-cell *matCellDef="let row; let i = index;" class="text-truncate">
-                      {{i + 1}}
-                    </td>
-                  </ng-container>
+            <!-- Last Name Column -->
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> LastName </th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                <span>{{row.last_name}}</span>
+              </td>
+            </ng-container>
 
-                  <!-- First Name Column -->
-                  <ng-container matColumnDef="firstName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FirstName </th>
-                    <td mat-cell *matCellDef="let row" class="text-truncate">
-                      <span>{{row.first_name}}</span>
-                    </td>
-                  </ng-container>
+            <!-- Account Type Column -->
+            <ng-container matColumnDef="accountType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Type </th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                <button type="button" [ngClass]="{'btn-outline-primary' : row.account_type === 'customer',
+              'btn-outline-danger' : row.account_type === 'provider'}"
+                  class="btn btn-sm btn-outline-danger round">{{row.account_type}}</button>
+              </td>
+            </ng-container>
 
-                  <!-- Last Name Column -->
-                  <ng-container matColumnDef="lastName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> LastName </th>
-                    <td mat-cell *matCellDef="let row" class="text-truncate">
-                      <span>{{row.last_name}}</span>
-                    </td>
-                  </ng-container>
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                <span>{{row.email}}</span>
+              </td>
+            </ng-container>
 
-                  <!-- Account Type Column -->
-                  <ng-container matColumnDef="accountType">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Type </th>
-                    <td mat-cell *matCellDef="let row" class="text-truncate">
-                      <button type="button" class="btn btn-sm btn-outline-danger round">{{row.account_type}}</button>
-                    </td>
-                  </ng-container>
+            <!-- PhoneNumber Column -->
+            <ng-container matColumnDef="phoneNumber">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
+              <td mat-cell *matCellDef="let row" class="text-truncate">
+                <span>{{row.phone_number}}</span>
+              </td>
+            </ng-container>
 
-                  <!-- Email Column -->
-                  <ng-container matColumnDef="email">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                    <td mat-cell *matCellDef="let row" class="text-truncate">
-                      <span>{{row.email}}</span>
-                    </td>
-                  </ng-container>
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
+              <td mat-cell *matCellDef="let element">
+                <button [routerLink]="['/usersInsight', element.username]" mat-stroked-button
+                  color="accent">View</button>
 
-                  <!-- PhoneNumber Column -->
-                  <ng-container matColumnDef="phoneNumber">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
-                    <td mat-cell *matCellDef="let row" class="text-truncate">
-                      <span>{{row.phone_number}}</span>
-                    </td>
-                  </ng-container>
+              </td>
+            </ng-container>
 
-                   <!-- Action Column -->
-                  <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
-                    <td mat-cell *matCellDef="let element">
-                      <button [routerLink]="['/admin-view', element.id]" mat-raised-button color="primary">View</button>
-                    </td>
-                  </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
 
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-                  </tr>
-                </table>
-
-                <mat-paginator [pageSize]="10"></mat-paginator>
-                <!-- [pageSizeOptions]="[5, 10, 25, 100]" -->
-              </div>
-            </div>
-
-          </div>
+          <mat-paginator [length]="totalItemCount" (page)="pageEvent = handlePagination($event)" [pageSize]="4">
+          </mat-paginator>
+          <!-- [pageSizeOptions]="[5, 10, 25, 100]" -->
         </div>
       </div>
-      <!--/ All Users -->
+
+    </div>
+  </div>
+</div>
+<!--/ All Users -->
