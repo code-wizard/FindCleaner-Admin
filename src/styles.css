@@ -17,3 +17,22 @@
 @import "assets/css/core/colors/palette-gradient.css";
 @import "assets/css/pages/timeline.css";
 @import "assets/css/pages/dashboard-ecommerce.css";
+
+
+#steady-spinner {
+  border: 4px solid lightblue;
+  border-top-color: #09e;
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+  margin: auto;
+  margin-top: 20px;
+  /* border-top-color: green; */
+  animation: spin 1s ease-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

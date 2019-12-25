@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   { path: "transactionsInsight", component: TransactionsComponent },
   {
-    path: "transactionsInsight/:transactionsId",
+    path: "transactionsInsight/:transactionId",
     component: TransactionViewComponent
   },
   { path: "settings", component: SettingsComponent },
