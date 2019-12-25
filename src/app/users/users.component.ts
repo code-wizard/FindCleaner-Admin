@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { MatPaginator, MatSort, MatTableDataSource } from "@angular/material";
 import { EndpointsService } from "../services/config/endpoints.service";
+import { GeneralService } from "../services/general.service";
 
 @Component({
   selector: "app-users",
@@ -28,9 +29,16 @@ export class UsersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private endpoints: EndpointsService) {}
+  constructor(
+    private endpoints: EndpointsService,
+    private genServ: GeneralService
+  ) {
+    this.getUsers();
+  }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  private getUsers() {
     this.endpoints.fetchAllUsers().subscribe((res: any) => {
       // console.log(res, "rusers");
       const { results, count, next, previous } = res;
@@ -49,7 +57,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  checkPlaceHolder(value, type) {
+  hidShowPlaceHolder(value, type) {
     if (type === "onFocus" || value) {
       this.myplaceHolder = "";
       return;
@@ -62,5 +70,25 @@ export class UsersComponent implements OnInit {
   handlePagination(event) {
     console.log("working", event, this.paginationUrl);
     this.endpoints.fetchPaginationPage;
+  }
+
+  handleDelete(username) {
+    this.genServ.sweetAlertDeletions("User").then(res => {
+      if (res.value) {
+        this.endpoints.deleteUser(username).subscribe(
+          res => {
+            this.getUsers();
+            this.genServ.sweetAlertSucess(
+              "User Deleted",
+              "Deletion Successful"
+            );
+          },
+          error => {
+            console.log(error, "error on delete");
+            this.genServ.sweetAlertError("Sorry, Delete Not Successful");
+          }
+        );
+      }
+    });
   }
 }

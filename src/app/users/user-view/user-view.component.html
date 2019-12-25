@@ -42,85 +42,88 @@
         <hr><br>
 
         <form class="form form-horizontal row-separator">
-          <div class="form-body">
-            <h4 class="form-section"><i class="la la-eye"></i> About User</h4>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row mx-auto">
-                  <label class="col-md-3 label-control" for="userinput1">Fist Name</label>
-                  <div class="col-md-9">
-                    <input type="text" id="userinput1" class="form-control border-primary" placeholder="First Name"
-                      name="firstname" [(ngModel)]="userDetails.first_name">
+          <div id="steady-spinner" *ngIf="(userDetails | json) === '{}'; else displayForm"></div>
+          <ng-template #displayForm>
+            <div class="form-body">
+              <h4 class="form-section"><i class="la la-eye"></i> About User</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto">
+                    <label class="col-md-3 label-control" for="userinput1">Fist Name</label>
+                    <div class="col-md-9">
+                      <input type="text" id="userinput1" class="form-control border-primary" placeholder="First Name"
+                        name="firstname" [(ngModel)]="userDetails.first_name">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto">
+                    <label class="col-md-3 label-control" for="userinput2">Last Name</label>
+                    <div class="col-md-9">
+                      <input type="text" id="userinput2" class="form-control border-primary" placeholder="Last Name"
+                        name="lastname" [(ngModel)]="userDetails.last_name">
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group row mx-auto">
-                  <label class="col-md-3 label-control" for="userinput2">Last Name</label>
-                  <div class="col-md-9">
-                    <input type="text" id="userinput2" class="form-control border-primary" placeholder="Last Name"
-                      name="lastname" [(ngModel)]="userDetails.last_name">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto last">
+                    <label class="col-md-3 label-control" for="userinput3">Username</label>
+                    <div class="col-md-9">
+                      <input type="text" id="userinput3" class="form-control border-primary" placeholder="Username"
+                        name="username" [(ngModel)]="userDetails.username" disabled>
+                    </div>
                   </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto last">
+                    <label class="col-md-3 label-control" for="userinput4">Account Type</label>
+                    <div class="col-md-9">
+                      <input type="text" id="userinput4" class="form-control border-primary" placeholder="Username"
+                        name="accountType" [(ngModel)]="userDetails.account_type">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h4 class="form-section"><i class="la la-envelope"></i> Contact Info & Bio</h4>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto">
+                    <label class="col-md-3 label-control" for="userinput5">Email</label>
+                    <div class="col-md-9">
+                      <input class="form-control border-primary" type="email" placeholder="email" id="userinput5"
+                        name="email" [(ngModel)]="userDetails.email">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group row mx-auto">
+                    <label class="col-md-3 label-control">Phone No</label>
+                    <div class="col-md-9">
+                      <input class="form-control border-primary" type="tel" placeholder="Contact Number" id="userinput7"
+                        name="phone" [(ngModel)]="userDetails.phone_number">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="form-actions top">
+                    <button type="submit" class="btn btn-primary mr-1" (click)="handleUpdate()">
+                      <i class="la la-check-square-o"></i> Save
+                    </button>
+                    <button type="button" class="btn btn-danger" (click)="handleDelete()">
+                      <i class="la la-trash"></i> Delete
+                    </button>
+                  </div>
+                </div>
+
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row mx-auto last">
-                  <label class="col-md-3 label-control" for="userinput3">Username</label>
-                  <div class="col-md-9">
-                    <input type="text" id="userinput3" class="form-control border-primary" placeholder="Username"
-                      name="username" [(ngModel)]="userDetails.username" disabled>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group row mx-auto last">
-                  <label class="col-md-3 label-control" for="userinput4">Account Type</label>
-                  <div class="col-md-9">
-                    <input type="text" id="userinput4" class="form-control border-primary" placeholder="Username"
-                      name="accountType" [(ngModel)]="userDetails.account_type">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <h4 class="form-section"><i class="la la-envelope"></i> Contact Info & Bio</h4>
-
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row mx-auto">
-                  <label class="col-md-3 label-control" for="userinput5">Email</label>
-                  <div class="col-md-9">
-                    <input class="form-control border-primary" type="email" placeholder="email" id="userinput5"
-                      name="email" [(ngModel)]="userDetails.email">
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="form-group row mx-auto">
-                  <label class="col-md-3 label-control">Phone No</label>
-                  <div class="col-md-9">
-                    <input class="form-control border-primary" type="tel" placeholder="Contact Number" id="userinput7"
-                      name="phone" [(ngModel)]="userDetails.phone_number">
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-12">
-                <div class="form-actions top">
-                  <button type="submit" class="btn btn-primary mr-1" (click)="handleUpdate()">
-                    <i class="la la-check-square-o"></i> Save
-                  </button>
-                  <button type="button" class="btn btn-danger" (click)="handleDelete()">
-                    <i class="la la-trash"></i> Delete
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
+          </ng-template>
 
         </form>
       </div>

@@ -3,6 +3,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { EndpointsService } from "../services/config/endpoints.service";
+import { GeneralService } from "../services/general.service";
 
 @Component({
   selector: "app-dashboard",
@@ -36,9 +37,16 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private endpoints: EndpointsService) {}
+  constructor(
+    private endpoints: EndpointsService,
+    private genServ: GeneralService
+  ) {}
 
   ngOnInit() {
+    this.getUsers();
+  }
+
+  private getUsers() {
     this.endpoints.fetchAllUsers().subscribe((res: any) => {
       console.log(res, "reuls");
       const { results, count, next, previous } = res;
@@ -57,7 +65,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  checkPlaceHolder(value, type) {
+  hidShowPlaceHolder(value, type) {
     if (type === "onFocus" || value) {
       this.myplaceHolder = "";
       return;
@@ -65,5 +73,25 @@ export class DashboardComponent implements OnInit {
       this.myplaceHolder = "Filter";
       return;
     }
+  }
+
+  handleDelete(username) {
+    this.genServ.sweetAlertDeletions("User").then(res => {
+      if (res.value) {
+        this.endpoints.deleteUser(username).subscribe(
+          res => {
+            this.getUsers();
+            this.genServ.sweetAlertSucess(
+              "User Deleted",
+              "Deletion Successful"
+            );
+          },
+          error => {
+            console.log(error, "error on delete");
+            this.genServ.sweetAlertError("Sorry, Delete Not Successful");
+          }
+        );
+      }
+    });
   }
 }
