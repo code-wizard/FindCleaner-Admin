@@ -11,12 +11,12 @@ export class EndpointsService {
 
   private usersUrl = {
     getAllUsers: "dashboard/users",
-    getOneUser: "dashboard/user"
+    getUpdateDeleteUser: "dashboard/user"
   };
 
   private transactionsUrl = {
     getAllTransactions: "dashboard/all-transaction/",
-    getOneUser: "dashboard/transaction/{service_id}"
+    getUpdateDeleteTransaction: "dashboard/transaction"
   };
 
   private settingsUrl = {
@@ -37,7 +37,7 @@ export class EndpointsService {
   fetchOneUser(username) {
     try {
       return this.http.get(
-        `${this.apiUrl}${this.usersUrl.getOneUser}/${username}`
+        `${this.apiUrl}${this.usersUrl.getUpdateDeleteUser}/${username}`
       );
     } catch (error) {
       alert(error);
@@ -45,11 +45,20 @@ export class EndpointsService {
   }
 
   updateUser(username, payload) {
-    this.httpStatus = "update";
     try {
       return this.http.put(
-        `${this.apiUrl}${this.usersUrl.getOneUser}/${username}`,
+        `${this.apiUrl}${this.usersUrl.getUpdateDeleteUser}/${username}`,
         payload
+      );
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  deleteUser(username) {
+    try {
+      return this.http.delete(
+        `${this.apiUrl}${this.usersUrl.getUpdateDeleteUser}/${username}`
       );
     } catch (error) {
       alert(error);
@@ -62,6 +71,37 @@ export class EndpointsService {
     try {
       return this.http.get(
         `${this.apiUrl}${this.transactionsUrl.getAllTransactions}`
+      );
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  fetchOneTransaction(id) {
+    try {
+      return this.http.get(
+        `${this.apiUrl}${this.transactionsUrl.getUpdateDeleteTransaction}/${id}`
+      );
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  updateTransaction(id, payload) {
+    try {
+      return this.http.put(
+        `${this.apiUrl}${this.transactionsUrl.getUpdateDeleteTransaction}/${id}`,
+        payload
+      );
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  deleteTransaction(id) {
+    try {
+      return this.http.delete(
+        `${this.apiUrl}${this.transactionsUrl.getUpdateDeleteTransaction}/${id}`
       );
     } catch (error) {
       alert(error);

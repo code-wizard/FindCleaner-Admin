@@ -8,12 +8,8 @@ import Swal from "sweetalert2";
   providedIn: "root"
 })
 export class GeneralService {
-  expiredToken = new BehaviorSubject<any>("");
   reloadService = new BehaviorSubject<boolean>(true);
-  signedInUserDetails = new BehaviorSubject<any>("");
-  tokenGenerated = new BehaviorSubject<string>("");
   httpStatus = new BehaviorSubject<string>("firstload");
-  filterQueryClientIDs = new BehaviorSubject<string>("");
 
   constructor(private router: Router, private http: HttpClient) {}
 
