@@ -5,21 +5,38 @@
       <div class="card-header">
         <h4 class="card-title">ALL TRANSACTIONS </h4>
         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+        <div class="heading-elements">
+          <ul class="list-inline mb-0">
+            <li>
+              <a class="btn btn-sm box-shadow-2 round btn-min-width pull-right" style="color:white!important;"
+                [ngClass]="{'btn-danger': filterStatus === 'Activate', 'btn-success': filterStatus === 'Deactivate'}"
+                (click)="handleDateFilterActivation()">{{filterStatus}} Date Filter
+              </a>
+            </li>
+          </ul>
+        </div>
         <hr>
 
       </div>
       <div class="card-content">
-        <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;">
+        <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;"
+          *ngIf="filterStatus === 'Activate'; else dateFilter;">
           <input matInput (keyup)="applyFilter($event.target.value)"
-            (focus)="checkPlaceHolder($event.target.value, 'onFocus')"
-            (blur)="checkPlaceHolder($event.target.value, 'onBlur')" placeholder="{{myplaceHolder}}">
+            (focus)="hidShowPlaceHolder($event.target.value, 'onFocus')"
+            (blur)="hidShowPlaceHolder($event.target.value, 'onBlur')" placeholder="{{myplaceHolder}}">
         </mat-form-field>
+        <ng-template #dateFilter>
+          <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;">
+            <input type="date" #date matInput (change)="handleDateFilter(date.value)">
+          </mat-form-field>
+        </ng-template>
 
         <div class="mat-elevation-z8 table-responsive">
           <div id="steady-spinner" *ngIf="!dataSource; else displayTable"></div>
 
           <ng-template #displayTable>
-            <table mat-table [dataSource]="dataSource" matSort id="recent-orders" class="table table-hover mb-0">
+            <table mat-table [dataSource]="dataSource | filter: filterColumn:filterSearch" matSort id="recent-orders"
+              class="table table-hover mb-0">
 
               <!-- Index Column -->
               <ng-container matColumnDef="index">
@@ -52,13 +69,6 @@
                 </td>
               </ng-container>
 
-              <!-- Customer Column -->
-              <!-- <ng-container matColumnDef="customer">
-                <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Customer </th>
-                <td id="fixPadding" mat-cell *matCellDef="let row" class="text-truncate">
-                  <span>{{row.customer.name}}</span>
-                </td>
-              </ng-container> -->
 
               <!-- PaymentMode Column -->
               <ng-container matColumnDef="paymentMode">
@@ -94,9 +104,9 @@
                 <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> DeliveryDate</th>
                 <td id="fixPadding" mat-cell *matCellDef="let row" class="text-truncate"
                   [routerLink]="['/transactionsInsight', row.id]">
-                  <span *ngIf="row.service_deliver_on; else notDue">{{row.service_deliver_on }}</span>
-                  <ng-template #notDue>
-                    <span>Not Due</span>
+                  <span *ngIf="row.service_deliver_on === 'Not Due'; else dateFilter">{{row.service_deliver_on }}</span>
+                  <ng-template #dateFilter>
+                    <span>{{row.service_deliver_on | date: 'longDate' }}</span>
                   </ng-template>
                 </td>
               </ng-container>
@@ -116,7 +126,8 @@
                 <td id="fixPadding" mat-cell *matCellDef="let element">
                   <i class="la la-link success font-large-1" style="cursor: pointer;"
                     [routerLink]="['/transactionsInsight', element.id]"></i>
-                  <i class="la la-trash danger font-large-1" (click)="handleDelete(id)" style="cursor: pointer;"></i>
+                  <i class="la la-trash danger font-large-1" (click)="handleDelete(element.id)"
+                    style="cursor: pointer;"></i>
 
                 </td>
               </ng-container>

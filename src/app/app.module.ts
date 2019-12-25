@@ -30,14 +30,15 @@ import { AppComponent } from "./app.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { HeaderNavComponent } from "./header-nav/header-nav.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
-import { ChartComponent } from "./shared/chart/components/chart.component";
+import { ChartComponent } from "./shared/components/chart/chart.component";
 import { UsersComponent } from "./users/users.component";
 import { AuthcrudInterceptorService } from "./auth/auth-crud-interceptor.service";
 import { UserViewComponent } from "./users/user-view/user-view.component";
 import { TransactionsComponent } from "./transactions/transactions.component";
 import { TransactionViewComponent } from "./transactions/transaction-view/transaction-view.component";
 import { SettingsComponent } from "./settings/settings.component";
-import { ShortenPipe } from "./shared/chart/pipes/shorten.pipe";
+import { ShortenPipe } from "./shared/pipes/shorten.pipe";
+import { FilterPipe } from "./shared/pipes/filter.pipe";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ShortenPipe } from "./shared/chart/pipes/shorten.pipe";
     TransactionsComponent,
     TransactionViewComponent,
     SettingsComponent,
-    ShortenPipe
+    ShortenPipe,
+    FilterPipe
   ],
   imports: [
     AppRoutingModule,

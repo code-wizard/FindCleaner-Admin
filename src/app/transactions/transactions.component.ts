@@ -10,6 +10,9 @@ import { GeneralService } from "../services/general.service";
 })
 export class TransactionsComponent implements OnInit {
   myplaceHolder = "Filter";
+  filterStatus = "Activate";
+  filterColumn = "Date";
+  filterSearch;
   displayedColumns: string[] = [
     "status",
     "index",
@@ -20,20 +23,6 @@ export class TransactionsComponent implements OnInit {
     "totalAmount",
     "action"
   ];
-
-  // {
-  //   "requirement_description": "string",
-  //   "service_required_on": "string",
-  //   "expected_start_time": "string",
-  //   "expected_hours_to_complete": "string",
-  //   "total_amount": 0,
-  //   "status": "string",
-  //   "payment_mode": "string",
-  //   "service_deliver_on": "string",
-  //   "service": 0,
-  //   "service_provider": 0,
-  //   "customer": 0
-  // }
 
   dataSource: MatTableDataSource<any>;
 
@@ -51,8 +40,10 @@ export class TransactionsComponent implements OnInit {
         const count = { count: `TRANS-00${i + 1}` };
         return { ...element, ...count };
       });
-
-      // console.log(projections, "transactions");
+      !projections[0].service_deliver_on
+        ? (projections[0].service_deliver_on = "Not Due")
+        : projections[0].service_deliver_on;
+      console.log(projections, "transactions");
       this.dataSource = new MatTableDataSource(projections);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -67,7 +58,17 @@ export class TransactionsComponent implements OnInit {
     }
   }
 
-  checkPlaceHolder(value, type) {
+  handleDateFilterActivation() {
+    this.filterStatus === "Activate"
+      ? (this.filterStatus = "Deactivate")
+      : (this.filterStatus = "Activate");
+  }
+
+  handleDateFilter(value) {
+    this.filterSearch = value;
+  }
+
+  hidShowPlaceHolder(value, type) {
     if (type === "onFocus" || value) {
       this.myplaceHolder = "";
       return;
