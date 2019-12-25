@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { GeneralService } from "src/app/services/general.service";
 import { EndpointsService } from "src/app/services/config/endpoints.service";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import Swal from "sweetalert2";
 
 @Component({
@@ -10,16 +10,18 @@ import Swal from "sweetalert2";
   styleUrls: ["./user-view.component.css"]
 })
 export class UserViewComponent implements OnInit {
-  userDetails = {};
+  userDetails: any = {};
   constructor(
     private genServ: GeneralService,
     private endpoints: EndpointsService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private route: Router
   ) {
     this.router.params.subscribe((res: Params) => {
       const { username } = res;
       this.endpoints.fetchOneUser(username).subscribe(res => {
         this.userDetails = res;
+        // console.log(res, "resUsers");
       });
     });
   }
@@ -66,6 +68,21 @@ export class UserViewComponent implements OnInit {
   }
 
   handleDelete() {
-    this.genServ.sweetAlertDeletions("User");
+    this.genServ.sweetAlertDeletions("User").then(res => {
+      if (res.value) {
+        this.endpoints.deleteUser(this.userDetails.username).subscribe(
+          res => {
+            console.log(res);
+            this.genServ
+              .sweetAlertSucess("User Deleted", "Deletion Successful")
+              .then(res => this.route.navigate(["/usersInsight"]));
+          },
+          error => {
+            console.log(error, "error on delete");
+            this.genServ.sweetAlertError("Sorry, Delete Not Successful");
+          }
+        );
+      }
+    });
   }
 }

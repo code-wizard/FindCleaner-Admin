@@ -1,27 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { EndpointsService } from '../services/config/endpoints.service';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { EndpointsService } from "../services/config/endpoints.service";
+import { GeneralService } from "../services/general.service";
 
 @Component({
-  selector: 'app-transactions',
-  templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.css']
+  selector: "app-transactions",
+  templateUrl: "./transactions.component.html",
+  styleUrls: ["./transactions.component.css"]
 })
 export class TransactionsComponent implements OnInit {
+  myplaceHolder = "Filter";
   displayedColumns: string[] = [
-    'index',
-    'description',
-    // 'serviceOn',
-    // 'expectedStartTime',
-    // 'expectedNoOfHrs',
-    'totalAmount',
-    'status',
-    'paymentMode',
-    'dateOfDelivery',
-    // 'service',
-    // 'serviceProvider',
-    // 'customer',
-    'action',
+    "status",
+    "index",
+    "description",
+    "paymentMode",
+    "provider",
+    "dateOfDelivery",
+    "totalAmount",
+    "action"
   ];
 
   // {
@@ -43,14 +40,20 @@ export class TransactionsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private endpoints: EndpointsService) {
-  }
+  constructor(
+    private endpoints: EndpointsService,
+    private genServ: GeneralService
+  ) {}
 
   ngOnInit() {
     this.endpoints.fetchAllTransactions().subscribe((result: any) => {
-      console.log(result, 'reuls');
-      const { users } = result;
-      this.dataSource = new MatTableDataSource(users);
+      const projections = result.map((element, i) => {
+        const count = { count: `TRANS-00${i + 1}` };
+        return { ...element, ...count };
+      });
+
+      // console.log(projections, "transactions");
+      this.dataSource = new MatTableDataSource(projections);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -64,4 +67,33 @@ export class TransactionsComponent implements OnInit {
     }
   }
 
+  checkPlaceHolder(value, type) {
+    if (type === "onFocus" || value) {
+      this.myplaceHolder = "";
+      return;
+    } else if (type === "onBlur" && !value) {
+      this.myplaceHolder = "Filter";
+      return;
+    }
+  }
+
+  handleDelete(id) {
+    this.genServ.sweetAlertDeletions("Transaction").then(res => {
+      if (res.value) {
+        this.endpoints.deleteTransaction(id).subscribe(
+          res => {
+            console.log(res);
+            this.genServ.sweetAlertSucess(
+              "Transaction Deleted",
+              "Deletion Successful"
+            );
+          },
+          error => {
+            console.log(error, "error on delete");
+            this.genServ.sweetAlertError("Sorry, Delete Not Successful");
+          }
+        );
+      }
+    });
+  }
 }

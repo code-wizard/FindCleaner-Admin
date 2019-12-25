@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.endpoints.fetchAllUsers().subscribe((res: any) => {
-      console.log(res, "reuls");
+      // console.log(res, "rusers");
       const { results, count, next, previous } = res;
       this.totalItemCount = count;
       this.paginationUrl = { next, previous };
