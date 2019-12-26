@@ -14,9 +14,16 @@
 @import "assets/css/core/menu/menu-types/vertical-menu-modern.css";
 @import "assets/css/core/colors/palette-gradient.css";
 @import "assets/fonts/simple-line-icons/style.css";
-@import "assets/css/core/colors/palette-gradient.css";
 @import "assets/css/pages/timeline.css";
 @import "assets/css/pages/dashboard-ecommerce.css";
+
+
+/* Register  */
+@import "assets/vendors/css/forms/icheck/icheck.css";
+@import "assets/vendors/css/forms/icheck/custom.css";
+@import "assets/css/pages/login-register.css";
+
+
 
 
 #steady-spinner {

@@ -10,11 +10,16 @@ import { Location } from "@angular/common";
 export class AppComponent {
   title = "FindCleaner-Admin";
   settingsURL = false;
-  route: string;
+  loginRegisterUrl = false;
 
   constructor(location: Location, router: Router) {
     router.events.subscribe(val => {
       this.settingsURL = location.path().includes("/settings") ? true : false;
+      this.loginRegisterUrl =
+        location.path().includes("/login") ||
+        location.path().includes("/register")
+          ? true
+          : false;
     });
   }
 }

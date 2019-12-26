@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!loginRegisterUrl; else loginRegisterPage">
   <!-- BEGIN: Header-->
   <app-header-nav></app-header-nav>
   <!-- END: Header-->
@@ -37,3 +37,7 @@
   <!-- END: Footer-->
 
 </div>
+
+<ng-template #loginRegisterPage>
+  <router-outlet></router-outlet>
+</ng-template>
