@@ -39,6 +39,9 @@ import { TransactionViewComponent } from "./transactions/transaction-view/transa
 import { SettingsComponent } from "./settings/settings.component";
 import { ShortenPipe } from "./shared/pipes/shorten.pipe";
 import { FilterPipe } from "./shared/pipes/filter.pipe";
+import { SessionsComponent } from './sessions/sessions.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,10 @@ import { FilterPipe } from "./shared/pipes/filter.pipe";
     TransactionViewComponent,
     SettingsComponent,
     ShortenPipe,
-    FilterPipe
+    FilterPipe,
+    SessionsComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     AppRoutingModule,

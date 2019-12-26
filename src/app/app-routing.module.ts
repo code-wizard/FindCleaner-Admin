@@ -6,6 +6,9 @@ import { UserViewComponent } from "./users/user-view/user-view.component";
 import { TransactionsComponent } from "./transactions/transactions.component";
 import { TransactionViewComponent } from "./transactions/transaction-view/transaction-view.component";
 import { SettingsComponent } from "./settings/settings.component";
+import { SessionsComponent } from "./sessions/sessions.component";
+import { LoginComponent } from "./auth/login/login.component";
+import { RegisterComponent } from "./auth/register/register.component";
 
 const routes: Routes = [
   { path: "adminDashboard", component: DashboardComponent },
@@ -18,6 +21,18 @@ const routes: Routes = [
   {
     path: "transactionsInsight/:transactionId",
     component: TransactionViewComponent
+  },
+  {
+    path: "sessions",
+    component: SessionsComponent
+  },
+  {
+    path: "login",
+    component: LoginComponent
+  },
+  {
+    path: "register",
+    component: RegisterComponent
   },
   { path: "settings", component: SettingsComponent },
   { path: "", redirectTo: "adminDashboard", pathMatch: "full" },
