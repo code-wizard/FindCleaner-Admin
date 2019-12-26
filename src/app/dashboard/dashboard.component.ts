@@ -12,7 +12,8 @@ import { GeneralService } from "../services/general.service";
 })
 export class DashboardComponent implements OnInit {
   myplaceHolder = "Filter";
-  totalItemCount = 0;
+  totalUserCount = 0;
+  totalSessionsCount = 0;
   paginationUrl = {
     next: "",
     previous: ""
@@ -32,7 +33,8 @@ export class DashboardComponent implements OnInit {
     "phoneNumber",
     "action"
   ];
-  dataSource: MatTableDataSource<any>;
+  dataSourceUsers: MatTableDataSource<any>;
+  dataSourceSessions = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -44,24 +46,32 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
+    this.getSessions();
   }
 
   private getUsers() {
     this.endpoints.fetchAllUsers().subscribe((res: any) => {
-      console.log(res, "reuls");
       const { results, count, next, previous } = res;
-      this.totalItemCount = count;
+      this.totalUserCount = count;
       this.paginationUrl = { next, previous };
-      this.dataSource = new MatTableDataSource(results);
-      // this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.dataSourceUsers = new MatTableDataSource(results);
+      this.dataSourceUsers.paginator = this.paginator;
+      this.dataSourceUsers.sort = this.sort;
+    });
+  }
+
+  private getSessions() {
+    this.endpoints.fetchAllSessions().subscribe((result: any) => {
+      const { results, count } = result;
+      this.totalSessionsCount = count;
+      this.dataSourceSessions = results;
     });
   }
 
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    this.dataSourceUsers.filter = filterValue.trim().toLowerCase();
+    if (this.dataSourceUsers.paginator) {
+      this.dataSourceUsers.paginator.firstPage();
     }
   }
 
