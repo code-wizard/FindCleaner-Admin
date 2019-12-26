@@ -19,6 +19,10 @@ export class EndpointsService {
     getUpdateDeleteTransaction: "dashboard/transaction"
   };
 
+  private sessionsUrl = {
+    getActiveSessions: "dashboard/active-session/"
+  };
+
   private settingsUrl = {
     getUpdateSettings: "dashboard/settings/"
   };
@@ -108,6 +112,19 @@ export class EndpointsService {
     }
   }
   // Transactions Endpoint Ends
+
+  // Sessions Endpoints
+
+  fetchAllSessions() {
+    try {
+      return this.http.get(
+        `${this.apiUrl}${this.sessionsUrl.getActiveSessions}`
+      );
+    } catch (error) {
+      alert(error);
+    }
+  }
+  //Sessions Endpoints End
 
   // Settings Endpoints
   fetchSettings() {
