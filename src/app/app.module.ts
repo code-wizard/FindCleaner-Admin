@@ -24,6 +24,7 @@ import {
   MAT_DATE_FORMATS
 } from "@angular/material";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatCardModule } from "@angular/material/card";
 import { ChartsModule } from "ng2-charts";
 
 import { AppComponent } from "./app.component";
@@ -39,9 +40,9 @@ import { TransactionViewComponent } from "./transactions/transaction-view/transa
 import { SettingsComponent } from "./settings/settings.component";
 import { ShortenPipe } from "./shared/pipes/shorten.pipe";
 import { FilterPipe } from "./shared/pipes/filter.pipe";
-import { SessionsComponent } from './sessions/sessions.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
+import { SessionsComponent } from "./sessions/sessions.component";
+import { LoginComponent } from "./auth/login/login.component";
+import { RegisterComponent } from "./auth/register/register.component";
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { RegisterComponent } from './auth/register/register.component';
     MatDatepickerModule,
     MatSlideToggleModule,
     MatNativeDateModule,
+    MatCardModule,
     ChartsModule
   ],
   providers: [

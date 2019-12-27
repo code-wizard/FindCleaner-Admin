@@ -12,7 +12,10 @@ import { RegisterComponent } from "./auth/register/register.component";
 
 const routes: Routes = [
   { path: "adminDashboard", component: DashboardComponent },
-  { path: "usersInsight", component: UsersComponent },
+  {
+    path: "usersInsight/pages/:pageNumber",
+    component: UsersComponent
+  },
   {
     path: "usersInsight/:username",
     component: UserViewComponent

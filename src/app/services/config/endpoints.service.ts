@@ -11,11 +11,12 @@ export class EndpointsService {
 
   private usersUrl = {
     getAllUsers: "dashboard/users",
-    getUpdateDeleteUser: "dashboard/user"
+    getUpdateDeleteUser: "dashboard/user",
+    filterUsers: "dashboard/users/?search="
   };
 
   private transactionsUrl = {
-    getAllTransactions: "dashboard/all-transaction/",
+    getAllTransactions: "dashboard/all-transaction",
     getUpdateDeleteTransaction: "dashboard/transaction"
   };
 
@@ -27,12 +28,24 @@ export class EndpointsService {
     getUpdateSettings: "dashboard/settings/"
   };
 
+  private loginUrl = "accounts/rest-auth/login/";
+
   constructor(private http: HttpClient) {}
 
   // Users Endpoint
   fetchAllUsers() {
     try {
       return this.http.get(`${this.apiUrl}${this.usersUrl.getAllUsers}`);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  fetchFilteredUsers(params) {
+    try {
+      return this.http.get(
+        `${this.apiUrl}${this.usersUrl.filterUsers}${params}`
+      );
     } catch (error) {
       alert(error);
     }
@@ -153,6 +166,16 @@ export class EndpointsService {
   fetchPaginationPage(url) {
     try {
       return this.http.get(url);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  // Login
+  loginUser(credentials) {
+    this.httpStatus = "login";
+    try {
+      return this.http.post(`${this.apiUrl}${this.loginUrl}`, credentials);
     } catch (error) {
       alert(error);
     }
