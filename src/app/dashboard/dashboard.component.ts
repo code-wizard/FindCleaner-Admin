@@ -75,6 +75,7 @@ export class DashboardComponent implements OnInit {
     count > this.paginationUrl.viewCountEnd
       ? this.paginationUrl
       : (this.paginationUrl.viewCountEnd = count);
+    this.totalUserCount = count;
     this.dataSourceUsers = new MatTableDataSource(results);
 
     this.dataSourceUsers.sort = this.sort;

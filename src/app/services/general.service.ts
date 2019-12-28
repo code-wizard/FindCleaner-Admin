@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 export class GeneralService {
   reloadService = new BehaviorSubject<boolean>(true);
   httpStatus = new BehaviorSubject<string>("firstload");
+  expiredToken = new BehaviorSubject<any>("");
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -84,6 +85,17 @@ export class GeneralService {
       type: "warning",
       confirmButtonColor: "#3085d6",
       confirmButtonText: "Okay"
+    });
+  }
+
+  sweetAlertAuthVerification(errMsg) {
+    Swal.fire({
+      type: "error",
+      position: "top-end",
+      title: errMsg,
+      toast: true,
+      showConfirmButton: false,
+      timer: 4000
     });
   }
 }

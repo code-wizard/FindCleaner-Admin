@@ -25,12 +25,13 @@
         <ul class="nav navbar-nav float-right">
 
           <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link"
-              data-toggle="dropdown"><span class="mr-1 user-name text-bold-700">KniteDeveloper</span><span
-                class="avatar avatar-online"><img src="assets/images/portrait/small/avatar-s-19.png"
+              data-toggle="dropdown"><span class="mr-1 user-name text-bold-700">{{userDetails?.username}}</span><span
+                class="avatar avatar-online"><img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
                   alt="avatar"><i></i></span></a>
             <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" routerLink="/settings"><i
                   class="ft-user"></i> Settings</a>
-              <div class="dropdown-divider"></div><a class="dropdown-item"><i class="ft-power"></i> Logout</a>
+              <div class="dropdown-divider"></div><a class="dropdown-item" (click)="handlelogout()"><i
+                  class="ft-power"></i> Logout</a>
             </div>
           </li>
 
