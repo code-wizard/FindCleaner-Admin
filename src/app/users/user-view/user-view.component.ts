@@ -1,7 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { GeneralService } from "src/app/services/general.service";
 import { EndpointsService } from "src/app/services/config/endpoints.service";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+  RouterStateSnapshot
+} from "@angular/router";
 import Swal from "sweetalert2";
 
 @Component({
@@ -75,7 +80,7 @@ export class UserViewComponent implements OnInit {
             console.log(res);
             this.genServ
               .sweetAlertSucess("User Deleted", "Deletion Successful")
-              .then(res => this.route.navigate(["/usersInsight"]));
+              .then(res => this.route.navigate(["/usersInsight/pages/1"]));
           },
           error => {
             console.log(error, "error on delete");
@@ -84,5 +89,9 @@ export class UserViewComponent implements OnInit {
         );
       }
     });
+  }
+
+  backToPreviousPage() {
+    this.route.navigate([this.router.snapshot.queryParams.redirectTo]);
   }
 }

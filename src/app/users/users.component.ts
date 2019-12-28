@@ -188,4 +188,14 @@ export class UsersComponent implements OnInit {
       }
     });
   }
+
+  handleNavigation(username) {
+    let redirect = "";
+    this.route.snapshot.url.forEach((res: any) => {
+      redirect += res.path + "/";
+    });
+    this.router.navigate(["/usersInsight", username], {
+      queryParams: { redirectTo: redirect }
+    });
+  }
 }

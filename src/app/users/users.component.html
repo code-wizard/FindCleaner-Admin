@@ -27,7 +27,7 @@
               <!-- Index Column -->
               <ng-container matColumnDef="index">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Index </th>
-                <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row; let i = index;"
+                <td (click)="handleNavigation(row.username)" mat-cell *matCellDef="let row; let i = index;"
                   class="text-truncate">
                   {{i + paginationUrl.viewCountStart}}
                 </td>
@@ -36,7 +36,7 @@
               <!-- First Name Column -->
               <ng-container matColumnDef="firstName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> FirstName </th>
-                <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row" class="text-truncate">
+                <td (click)="handleNavigation(row.username)" mat-cell *matCellDef="let row" class="text-truncate">
                   <span>{{row.first_name}}</span>
                 </td>
               </ng-container>
@@ -44,7 +44,7 @@
               <!-- Last Name Column -->
               <ng-container matColumnDef="lastName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> LastName </th>
-                <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row" class="text-truncate">
+                <td (click)="handleNavigation(row.username)" mat-cell *matCellDef="let row" class="text-truncate">
                   <span>{{row.last_name}}</span>
                 </td>
               </ng-container>
@@ -52,7 +52,7 @@
               <!-- Account Type Column -->
               <ng-container matColumnDef="accountType">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Type </th>
-                <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row" class="text-truncate">
+                <td (click)="handleNavigation(row.username)" mat-cell *matCellDef="let row" class="text-truncate">
                   <button type="button" [ngClass]="{'btn-outline-primary' : row.account_type === 'customer',
                     'btn-outline-danger' : row.account_type === 'provider'}"
                     class="btn btn-sm btn-outline-danger round">{{row.account_type}}</button>
@@ -62,7 +62,7 @@
               <!-- Email Column -->
               <ng-container matColumnDef="email">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row" class="text-truncate">
+                <td (click)="handleNavigation(row.username)" mat-cell *matCellDef="let row" class="text-truncate">
                   <span>{{row.email}}</span>
                 </td>
               </ng-container>
@@ -70,7 +70,7 @@
               <!-- PhoneNumber Column -->
               <ng-container matColumnDef="phoneNumber">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
-                <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row" class="text-truncate">
+                <td (click)="handleNavigation(row.username)" mat-cell *matCellDef="let row" class="text-truncate">
                   <span>{{row.phone_number}}</span>
                 </td>
               </ng-container>
