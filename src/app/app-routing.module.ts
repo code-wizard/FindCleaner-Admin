@@ -9,25 +9,38 @@ import { SettingsComponent } from "./settings/settings.component";
 import { SessionsComponent } from "./sessions/sessions.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { RegisterComponent } from "./auth/register/register.component";
+import { AuthGuard } from "./auth/auth.guard";
 
 const routes: Routes = [
-  { path: "adminDashboard", component: DashboardComponent },
+  {
+    path: "adminDashboard",
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: "usersInsight/pages/:pageNumber",
-    component: UsersComponent
+    component: UsersComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "usersInsight/:username",
-    component: UserViewComponent
+    component: UserViewComponent,
+    canActivate: [AuthGuard]
   },
-  { path: "transactionsInsight", component: TransactionsComponent },
+  {
+    path: "transactionsInsight",
+    component: TransactionsComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: "transactionsInsight/:transactionId",
-    component: TransactionViewComponent
+    component: TransactionViewComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "sessions",
-    component: SessionsComponent
+    component: SessionsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "login",
@@ -37,7 +50,7 @@ const routes: Routes = [
     path: "register",
     component: RegisterComponent
   },
-  { path: "settings", component: SettingsComponent },
+  { path: "settings", component: SettingsComponent, canActivate: [AuthGuard] },
   { path: "", redirectTo: "adminDashboard", pathMatch: "full" },
   { path: "**", redirectTo: "adminDashboard", pathMatch: "full" }
 ];
