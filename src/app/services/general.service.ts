@@ -91,7 +91,7 @@ export class GeneralService {
   sweetAlertAuthVerification(errMsg) {
     Swal.fire({
       type: "error",
-      position: "top-end",
+      position: "top",
       title: errMsg,
       toast: true,
       showConfirmButton: false,

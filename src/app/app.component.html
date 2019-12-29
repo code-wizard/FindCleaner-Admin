@@ -10,19 +10,21 @@
 
 
   <!-- BEGIN Body Content -->
-  <div class="app-content content" style="margin-bottom: 400px;" *ngIf="!settingsURL; else settingsPage">
-    <div class="content-wrapper">
-      <div class="content-header row mb-1">
-      </div>
-      <div class="content-body">
-        <router-outlet></router-outlet>
+  <div style="padding-top:5rem;">
+    <div class="app-content content" style="margin-bottom: 400px;" *ngIf="!settingsURL; else settingsPage">
+      <div class="content-wrapper">
+        <div class="content-header row mb-1">
+        </div>
+        <div class="content-body">
+          <router-outlet (activate)="onActivate($event)"></router-outlet>
+        </div>
       </div>
     </div>
-  </div>
 
-  <ng-template #settingsPage>
-    <router-outlet></router-outlet>
-  </ng-template>
+    <ng-template #settingsPage>
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
+    </ng-template>
+  </div>
   <!-- END Body Content -->
 
 

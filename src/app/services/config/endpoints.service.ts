@@ -171,8 +171,17 @@ export class EndpointsService {
     }
   }
 
-  // Login
+  // Login and Register
   loginUser(credentials) {
+    this.httpStatus = "login";
+    try {
+      return this.http.post(`${this.apiUrl}${this.loginUrl}`, credentials);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  registerUser(credentials) {
     this.httpStatus = "login";
     try {
       return this.http.post(`${this.apiUrl}${this.loginUrl}`, credentials);

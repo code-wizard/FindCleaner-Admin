@@ -14,15 +14,7 @@ export class AppComponent {
   settingsURL = false;
   loginRegisterUrl = false;
 
-  constructor(
-    location: Location,
-    router: Router,
-    private localStorage: LocalStorageService,
-    private genServ: GeneralService
-  ) {
-    const loggedIn = JSON.parse(this.localStorage.getFromLocalStorage("token"));
-    // console.log(loggedIn, "log", !this.loginRegisterUrl && !loggedIn);
-
+  constructor(location: Location, router: Router) {
     router.events.subscribe(val => {
       this.settingsURL = location.path().includes("/settings") ? true : false;
       this.loginRegisterUrl =
@@ -30,9 +22,17 @@ export class AppComponent {
         location.path().includes("/register")
           ? true
           : false;
-      // if (!this.loginRegisterUrl && !loggedIn) {
-      //   this.genServ.sweetAlertAuthVerification();
-      // }
     });
+  }
+
+  onActivate(event) {
+    let scrollToTop = window.setInterval(() => {
+      let pos = window.pageYOffset;
+      if (pos > 0) {
+        window.scrollTo(0, pos - 20); // how far to scroll on each step
+      } else {
+        window.clearInterval(scrollToTop);
+      }
+    }, 16);
   }
 }
