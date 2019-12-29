@@ -5,15 +5,36 @@
       <div class="card-header">
         <h4 class="card-title">ALL USERS </h4>
         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+        <div class="heading-elements">
+          <ul class="list-inline mb-0">
+            <li>
+              <a class="btn btn-sm box-shadow-2 round btn-min-width pull-right" style="color:white!important;"
+                [ngClass]="{'btn-danger': filterStatus === 'Activate', 'btn-success': filterStatus === 'Deactivate'}"
+                (click)="handleAcctTypeFilterActivation()">{{filterStatus}} Account Type Filter
+              </a>
+            </li>
+          </ul>
+        </div>
         <hr>
       </div>
 
       <div class="card-content">
-        <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;">
+        <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;"
+          *ngIf="filterStatus === 'Activate'; else acctTypeFilter;">
           <input matInput (keyup)="applyFilter($event.target.value)"
             (focus)="hidShowPlaceHolder($event.target.value, 'onFocus')"
             (blur)="hidShowPlaceHolder($event.target.value, 'onBlur')" placeholder="{{myplaceHolder}}">
         </mat-form-field>
+        <ng-template #acctTypeFilter>
+          <select class="custom-select d-block w-100" name="filter"
+            style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;"
+            (change)="applyFilter($event.target.value)">
+            <option value="" selected>Select Account Type</option>
+            <option value="provider">Provider</option>
+            <option value="customer">Customer</option>
+          </select>
+
+        </ng-template>
 
 
         <div class="mat-elevation-z8 table-responsive">
@@ -78,10 +99,10 @@
               <!-- Action Column -->
               <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
-                <td mat-cell *matCellDef="let element">
+                <td mat-cell *matCellDef="let row">
                   <i class="la la-link success font-large-1" style="cursor: pointer;"
-                    [routerLink]="['/usersInsight', element.username]"></i>
-                  <i class="la la-trash danger font-large-1" (click)="handleDelete(element.username)"
+                    (click)="handleNavigation(row.username)"></i>
+                  <i class="la la-trash danger font-large-1" (click)="handleDelete(row.username)"
                     style="cursor: pointer;"></i>
                 </td>
               </ng-container>

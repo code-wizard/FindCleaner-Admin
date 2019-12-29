@@ -12,6 +12,7 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 })
 export class UsersComponent implements OnInit {
   myplaceHolder = "Filter";
+  filterStatus = "Activate";
   totalItemCount = 0;
   paginationUrl = {
     next: "",
@@ -120,6 +121,7 @@ export class UsersComponent implements OnInit {
       ? url.substring(pageNumberIndex)
       : 1;
     this.router.navigate(["/usersInsight/pages/", pageNumber]);
+    this.scrollToTop();
 
     // if (type === "next") {
     //   // this.pageNumber = Number(pageNumber);
@@ -169,6 +171,12 @@ export class UsersComponent implements OnInit {
       });
   }
 
+  handleAcctTypeFilterActivation() {
+    this.filterStatus === "Activate"
+      ? (this.filterStatus = "Deactivate")
+      : (this.filterStatus = "Activate");
+  }
+
   handleDelete(username) {
     this.genServ.sweetAlertDeletions("User").then(res => {
       if (res.value) {
@@ -197,5 +205,16 @@ export class UsersComponent implements OnInit {
     this.router.navigate(["/usersInsight", username], {
       queryParams: { redirectTo: redirect }
     });
+  }
+
+  scrollToTop() {
+    let scrollToTop = window.setInterval(() => {
+      let pos = window.pageYOffset;
+      if (pos > 0) {
+        window.scrollTo(0, pos - 20); // how far to scroll on each step
+      } else {
+        window.clearInterval(scrollToTop);
+      }
+    }, 16);
   }
 }
