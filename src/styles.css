@@ -112,3 +112,7 @@
 button:focus.mat-icon-button {
   outline: none !important;
 }
+
+td.text-truncate {
+  cursor: pointer !important;
+}
