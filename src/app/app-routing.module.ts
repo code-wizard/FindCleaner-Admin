@@ -28,7 +28,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "transactionsInsight",
+    path: "transactionsInsight/pages/:pageNumber",
     component: TransactionsComponent,
     canActivate: [AuthGuard]
   },

@@ -122,37 +122,6 @@ export class UsersComponent implements OnInit {
       : 1;
     this.router.navigate(["/usersInsight/pages/", pageNumber]);
     this.scrollToTop();
-
-    // if (type === "next") {
-    //   // this.pageNumber = Number(pageNumber);
-
-    //   this.endpoints
-    //     .fetchPaginationPage(this.paginationUrl.next)
-    //     .subscribe(res => {
-    //       // Add page view counts by 10 on nextView event
-    //       this.paginationUrl = {
-    //         ...this.paginationUrl,
-    //         viewCountStart: this.paginationUrl.viewCountStart + 10,
-    //         viewCountEnd: this.paginationUrl.viewCountEnd + 10
-    //       };
-    //       this.setDataSource(res);
-    //       this.router.navigate(["/usersInsight/pages/", pageNumber]);
-    //     });
-    // } else if (type === "previous") {
-
-    //   this.endpoints
-    //     .fetchPaginationPage(this.paginationUrl.previous)
-    //     .subscribe(res => {
-    //       // Subtract page view counts by 10 on previousView event
-    //       this.paginationUrl = {
-    //         ...this.paginationUrl,
-    //         viewCountStart: this.paginationUrl.viewCountStart - 10,
-    //         viewCountEnd: this.paginationUrl.viewCountStart - 10 + 9
-    //       };
-    //       this.setDataSource(res);
-    //       this.router.navigate(["/usersInsight/pages/", pageNumber]);
-    //     });
-    // }
   }
 
   handleReloadOnPagination(pageNumber) {
