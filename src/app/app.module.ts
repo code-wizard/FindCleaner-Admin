@@ -43,6 +43,8 @@ import { FilterPipe } from "./shared/pipes/filter.pipe";
 import { SessionsComponent } from "./sessions/sessions.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { RegisterComponent } from "./auth/register/register.component";
+import { AdminUsersComponent } from "./admin-users/admin-users.component";
+import { AdminUserViewComponent } from "./admin-users/admin-user-view/admin-user-view.component";
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { RegisterComponent } from "./auth/register/register.component";
     FilterPipe,
     SessionsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AdminUsersComponent,
+    AdminUserViewComponent
   ],
   imports: [
     AppRoutingModule,

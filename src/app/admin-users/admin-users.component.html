@@ -1,0 +1,162 @@
+<!-- All Users -->
+<div class="row">
+  <div id="recent-transactions" class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">ALL ADMIN USERS </h4>
+        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+        <div class="heading-elements">
+        </div>
+        <hr>
+      </div>
+
+
+      <div class="card-content">
+        <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;">
+          <input matInput (keyup)="applyFilter($event.target.value)"
+            (focus)="hidShowPlaceHolder($event.target.value, 'onFocus')"
+            (blur)="hidShowPlaceHolder($event.target.value, 'onBlur')" placeholder="{{myplaceHolder}}">
+        </mat-form-field>
+
+
+        <div class="mat-elevation-z8 table-responsive">
+          <div id="steady-spinner" *ngIf="!dataSource; else displayTable"></div>
+
+          <ng-template #displayTable>
+
+            <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0; else noItems" matSort
+              id="recent-orders" class="table table-hover table-xl mb-0">
+
+              <!-- Index Column -->
+              <ng-container matColumnDef="index">
+                <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Index </th>
+                <td id="fixPadding" (click)="handleNavigation(row.username)" mat-cell
+                  *matCellDef="let row; let i = index;" class="text-truncate">
+                  {{i + paginationUrl.viewCountStart}}
+                </td>
+              </ng-container>
+
+              <!-- First Name Column -->
+              <ng-container matColumnDef="firstName">
+                <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> FirstName </th>
+                <td id="fixPadding" (click)="handleNavigation(row.username)" mat-cell *matCellDef="let row"
+                  class="text-truncate">
+                  <span>{{row.user.first_name}}</span>
+                </td>
+              </ng-container>
+
+              <!-- Last Name Column -->
+              <ng-container matColumnDef="lastName">
+                <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> LastName </th>
+                <td id="fixPadding" (click)="handleNavigation(row.user.id)" mat-cell *matCellDef="let row"
+                  class="text-truncate">
+                  <span>{{row.user.last_name}}</span>
+                </td>
+              </ng-container>
+
+              <!-- User Type Column -->
+              <ng-container matColumnDef="role">
+                <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+                <td id="fixPadding" (click)="handleNavigation(row.user.id)" mat-cell *matCellDef="let row"
+                  class="text-truncate">
+                  <button type="button" [ngClass]="{'btn-outline-primary' : row.user.account_type === 'customer',
+                    'btn-outline-danger' : row.user.account_type === 'provider'}"
+                    class="btn btn-sm btn-outline-danger round">{{row.user.user_type | titlecase}}</button>
+                </td>
+              </ng-container>
+
+              <!-- Email Column -->
+              <ng-container matColumnDef="email">
+                <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                <td id="fixPadding" (click)="handleNavigation(row.user.id)" mat-cell *matCellDef="let row"
+                  class="text-truncate">
+                  <span>{{row.user.email | shorten}}</span>
+                </td>
+              </ng-container>
+
+              <!-- Active Column -->
+              <ng-container matColumnDef="isActive">
+                <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
+                <td id="fixPadding" (click)="handleNavigation(row.user.id)" mat-cell *matCellDef="let row"
+                  class="text-truncate">
+                  <span>{{row.user.is_active}}</span>
+                </td>
+              </ng-container>
+
+              <!-- Date Joined Column -->
+              <ng-container matColumnDef="dateJoined">
+                <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header>Created On </th>
+                <td id="fixPadding" (click)="handleNavigation(row.user.id)" mat-cell *matCellDef="let row"
+                  class="text-truncate">
+                  <span>{{row.user.date_joined | date: 'longDate'}}</span>
+                </td>
+              </ng-container>
+
+              <!-- Action Column -->
+              <ng-container matColumnDef="action">
+                <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
+                <td id="fixPadding" mat-cell *matCellDef="let row">
+                  <i class="la la-link success font-large-1" style="cursor: pointer;"
+                    (click)="handleNavigation(row.user.id)"></i>
+                  <i class="la la-trash danger font-large-1" (click)="handleDelete(row.user.username)"
+                    style="cursor: pointer;"></i>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+              </tr>
+            </table>
+
+            <ng-template #noItems>
+              <mat-card class="text-center">No Items Available</mat-card>
+            </ng-template>
+          </ng-template>
+
+          <div class="mat-paginator-outer-container">
+            <div class="mat-paginator-container">
+              <div class="mat-paginator-page-size ng-star-inserted">
+                <div class="mat-paginator-page-size-label">Items per page:</div>
+                <div class="ng-star-inserted">10</div>
+              </div>
+              <div class="mat-paginator-range-actions">
+                <div class="mat-paginator-range-label">{{paginationUrl.viewCountStart}} - {{paginationUrl.viewCountEnd}}
+                  of
+                  {{totalItemCount}}</div>
+
+                <button class="mat-paginator-navigation-previous mat-icon-button" mat-icon-button="" type="button"
+                  [disabled]="!paginationUrl?.previous" (click)="handlePagination('previous')">
+                  <span class="mat-button-wrapper">
+                    <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                      <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+                    </svg>
+                  </span>
+                  <div class="mat-button-ripple mat-ripple mat-button-ripple-round">
+                  </div>
+                  <div class="mat-button-focus-overlay"></div>
+                </button>
+
+                <button class="mat-paginator-navigation-next mat-icon-button" mat-icon-button="" type="button"
+                  [disabled]="!paginationUrl?.next" (click)="handlePagination('next')">
+                  <span class="mat-button-wrapper">
+                    <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+                    </svg>
+                  </span>
+                  <div class="mat-button-ripple mat-ripple mat-button-ripple-round"></div>
+                  <div class="mat-button-focus-overlay"></div>
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+
+          <!-- [pageSizeOptions]="[5, 10, 25, 100]" -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--/ All Users -->

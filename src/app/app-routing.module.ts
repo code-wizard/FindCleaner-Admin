@@ -10,6 +10,8 @@ import { SessionsComponent } from "./sessions/sessions.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { RegisterComponent } from "./auth/register/register.component";
 import { AuthGuard } from "./auth/auth.guard";
+import { AdminUsersComponent } from "./admin-users/admin-users.component";
+import { AdminUserViewComponent } from "./admin-users/admin-user-view/admin-user-view.component";
 
 const routes: Routes = [
   {
@@ -35,6 +37,16 @@ const routes: Routes = [
   {
     path: "transactionsInsight/:transactionId",
     component: TransactionViewComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "adminUsersInsight/pages/:pageNumber",
+    component: AdminUsersComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "adminUsersInsight/:adminId",
+    component: AdminUserViewComponent,
     canActivate: [AuthGuard]
   },
   {

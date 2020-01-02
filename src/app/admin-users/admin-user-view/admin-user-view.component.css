@@ -1,0 +1,19 @@
+.img-thumbnail {
+  border-radius: 50%;
+  display: inline-block;
+  max-width: 70%;
+  height: auto;
+  padding: 4px;
+  line-height: 1.42857143;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  /* border-radius: 4px; */
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.form-actions {
+  margin-top: 11em;
+  float: right;
+}
