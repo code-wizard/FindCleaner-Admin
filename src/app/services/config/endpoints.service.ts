@@ -6,7 +6,7 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root"
 })
 export class EndpointsService {
-  private apiUrl = environment.apiUrl;
+  private host = environment.apiUrl;
   public httpStatus = "allCalls";
 
   private usersUrl = {
@@ -15,9 +15,16 @@ export class EndpointsService {
     filterUsers: "dashboard/users/?search="
   };
 
+  public adminUsersUrl = {
+    getAllAdminUsers: "staff/users",
+    getUpdateDeleteAdminUser: "staff/update",
+    filterAdminUsers: "staff/users/?search="
+  };
+
   private transactionsUrl = {
     getAllTransactions: "dashboard/all-transaction",
-    getUpdateDeleteTransaction: "dashboard/transaction"
+    getUpdateDeleteTransaction: "dashboard/transaction",
+    filterTransactions: "dashboard/all-transaction/?search="
   };
 
   private sessionsUrl = {
@@ -28,14 +35,49 @@ export class EndpointsService {
     getUpdateSettings: "dashboard/settings/"
   };
 
-  private loginUrl = "accounts/rest-auth/login/";
+  private registerLoginUrl = {
+    register: "staff/signup/",
+    login: "staff/login/"
+  };
 
   constructor(private http: HttpClient) {}
+
+  fetch(apiUrl) {
+    try {
+      return this.http.get(`${this.host}${apiUrl}`);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  update(apiUrl, payload) {
+    try {
+      return this.http.put(`${this.host}${apiUrl}`, payload);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  filter(apiUrl, params) {
+    try {
+      return this.http.get(`${this.host}${apiUrl}${params}`);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  delete(apiUrl, selector) {
+    try {
+      return this.http.delete(`${this.host}${apiUrl}/${selector}`);
+    } catch (error) {
+      alert(error);
+    }
+  }
 
   // Users Endpoint
   fetchAllUsers() {
     try {
-      return this.http.get(`${this.apiUrl}${this.usersUrl.getAllUsers}`);
+      return this.http.get(`${this.host}${this.usersUrl.getAllUsers}`);
     } catch (error) {
       alert(error);
     }
@@ -43,9 +85,7 @@ export class EndpointsService {
 
   fetchFilteredUsers(params) {
     try {
-      return this.http.get(
-        `${this.apiUrl}${this.usersUrl.filterUsers}${params}`
-      );
+      return this.http.get(`${this.host}${this.usersUrl.filterUsers}${params}`);
     } catch (error) {
       alert(error);
     }
@@ -54,7 +94,7 @@ export class EndpointsService {
   fetchOneUser(username) {
     try {
       return this.http.get(
-        `${this.apiUrl}${this.usersUrl.getUpdateDeleteUser}/${username}`
+        `${this.host}${this.usersUrl.getUpdateDeleteUser}/${username}`
       );
     } catch (error) {
       alert(error);
@@ -64,7 +104,7 @@ export class EndpointsService {
   updateUser(username, payload) {
     try {
       return this.http.put(
-        `${this.apiUrl}${this.usersUrl.getUpdateDeleteUser}/${username}`,
+        `${this.host}${this.usersUrl.getUpdateDeleteUser}/${username}`,
         payload
       );
     } catch (error) {
@@ -75,7 +115,7 @@ export class EndpointsService {
   deleteUser(username) {
     try {
       return this.http.delete(
-        `${this.apiUrl}${this.usersUrl.getUpdateDeleteUser}/${username}`
+        `${this.host}${this.usersUrl.getUpdateDeleteUser}/${username}`
       );
     } catch (error) {
       alert(error);
@@ -87,7 +127,7 @@ export class EndpointsService {
   fetchAllTransactions() {
     try {
       return this.http.get(
-        `${this.apiUrl}${this.transactionsUrl.getAllTransactions}`
+        `${this.host}${this.transactionsUrl.getAllTransactions}`
       );
     } catch (error) {
       alert(error);
@@ -97,7 +137,16 @@ export class EndpointsService {
   fetchOneTransaction(id) {
     try {
       return this.http.get(
-        `${this.apiUrl}${this.transactionsUrl.getUpdateDeleteTransaction}/${id}`
+        `${this.host}${this.transactionsUrl.getUpdateDeleteTransaction}/${id}`
+      );
+    } catch (error) {
+      alert(error);
+    }
+  }
+  fetchFilteredTransactions(params) {
+    try {
+      return this.http.get(
+        `${this.host}${this.transactionsUrl.filterTransactions}${params}`
       );
     } catch (error) {
       alert(error);
@@ -107,7 +156,7 @@ export class EndpointsService {
   updateTransaction(id, payload) {
     try {
       return this.http.put(
-        `${this.apiUrl}${this.transactionsUrl.getUpdateDeleteTransaction}/${id}`,
+        `${this.host}${this.transactionsUrl.getUpdateDeleteTransaction}/${id}`,
         payload
       );
     } catch (error) {
@@ -118,7 +167,7 @@ export class EndpointsService {
   deleteTransaction(id) {
     try {
       return this.http.delete(
-        `${this.apiUrl}${this.transactionsUrl.getUpdateDeleteTransaction}/${id}`
+        `${this.host}${this.transactionsUrl.getUpdateDeleteTransaction}/${id}`
       );
     } catch (error) {
       alert(error);
@@ -130,9 +179,7 @@ export class EndpointsService {
 
   fetchAllSessions() {
     try {
-      return this.http.get(
-        `${this.apiUrl}${this.sessionsUrl.getActiveSessions}`
-      );
+      return this.http.get(`${this.host}${this.sessionsUrl.getActiveSessions}`);
     } catch (error) {
       alert(error);
     }
@@ -142,9 +189,7 @@ export class EndpointsService {
   // Settings Endpoints
   fetchSettings() {
     try {
-      return this.http.get(
-        `${this.apiUrl}${this.settingsUrl.getUpdateSettings}`
-      );
+      return this.http.get(`${this.host}${this.settingsUrl.getUpdateSettings}`);
     } catch (error) {
       alert(error);
     }
@@ -153,7 +198,7 @@ export class EndpointsService {
   updateSettings(payload) {
     try {
       return this.http.put(
-        `${this.apiUrl}${this.settingsUrl.getUpdateSettings}`,
+        `${this.host}${this.settingsUrl.getUpdateSettings}`,
         payload
       );
     } catch (error) {
@@ -175,7 +220,10 @@ export class EndpointsService {
   loginUser(credentials) {
     this.httpStatus = "login";
     try {
-      return this.http.post(`${this.apiUrl}${this.loginUrl}`, credentials);
+      return this.http.post(
+        `${this.host}${this.registerLoginUrl.login}`,
+        credentials
+      );
     } catch (error) {
       alert(error);
     }
@@ -184,7 +232,10 @@ export class EndpointsService {
   registerUser(credentials) {
     this.httpStatus = "login";
     try {
-      return this.http.post(`${this.apiUrl}${this.loginUrl}`, credentials);
+      return this.http.post(
+        `${this.host}${this.registerLoginUrl.register}`,
+        credentials
+      );
     } catch (error) {
       alert(error);
     }

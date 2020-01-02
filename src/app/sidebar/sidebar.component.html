@@ -11,6 +11,11 @@
           routerLink="/usersInsight/pages/1"><i class="la la-list"></i><span class="menu-title" data-i18n="">Users
             Insight</span></a>
       </li>
+      <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/adminUsersInsight')}"><a
+          routerLink="/adminUsersInsight/pages/1"><i class="la la-users"></i><span class="menu-title"
+            data-i18n="">AdminUsers
+            Insight</span></a>
+      </li>
       <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/transactionsInsight')}"><a
           routerLink="/transactionsInsight/pages/1"><i class="la la-shopping-cart"></i><span class="menu-title"
             data-i18n="">Transactions Insight</span></a>
