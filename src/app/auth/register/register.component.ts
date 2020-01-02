@@ -4,6 +4,7 @@ import { LocalStorageService } from "src/app/utils/localStorage.service";
 import { GeneralService } from "src/app/services/general.service";
 import { AuthService } from "../auth.service";
 import { EndpointsService } from "src/app/services/config/endpoints.service";
+import $ from "jquery";
 
 @Component({
   selector: "app-register",
@@ -12,11 +13,15 @@ import { EndpointsService } from "src/app/services/config/endpoints.service";
 })
 export class RegisterComponent implements OnInit {
   credentials = {
-    username: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
+    phone_number: "",
     role: ""
   };
+  test = new FormData();
+
   constructor(
     private endpoints: EndpointsService,
     private router: Router,
@@ -25,41 +30,47 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {}
-
-  private get registerCredentials() {
-    const regExp = /\S+@\S+\.\S+/;
-    if (regExp.test(this.credentials.username)) {
-      this.credentials.email = this.credentials.username;
-      this.credentials.username = "";
-    }
-    return { ...this.credentials };
+  ngOnInit() {
+    this.test.append("res", "Join");
   }
 
-  handleLogin() {
-    const credentials = this.registerCredentials;
-    this.endpoints.registerUser(credentials).subscribe(
-      (res: any) => {
-        // const {
-        //   token,
-        //   user: { is_staff }
-        // } = res;
-        // if (is_staff) {
-        //   this.localStorage.saveToLocalStorage("token", token);
-        //   this.localStorage.saveToLocalStorage("AdminUserInfo", res.user);
-        //   this.endpoints.httpStatus = "allCalls";
-        //   const redirect = this.authService.redirectUrl
-        //     ? this.authService.redirectUrl
-        //     : "/adminDashboard";
-        //   this.router.navigate([`${redirect}`]);
-        // } else {
-        //   this.genServ.sweetAlertAuthVerification("User is not an Admin");
-        // }
-      },
-      error => {
-        // console.log(error.error.non_field_errors[0], "lol");
-        // this.genServ.sweetAlertAuthVerification("Invalid Credentials");
+  private get registerCredentials() {
+    let validationFields = "";
+    const obj = this.credentials;
+
+    for (const key in obj) {
+      if (!obj[key] && key !== "phone_number") {
+        validationFields += `${key} cannot be blank <br/>`;
       }
-    );
+    }
+    return !validationFields ? { ...this.credentials } : validationFields;
+  }
+
+  handleRegister() {
+    const credentials = this.registerCredentials;
+    if (typeof credentials === "string") {
+      this.genServ.sweetAlertHTML("Validation", credentials);
+    } else {
+      this.endpoints.registerUser(this.registerCredentials).subscribe(
+        (res: any) => {
+          console.log(res, "response");
+
+          this.genServ
+            .sweetAlertSucess(
+              "Registration Successful",
+              "Check your email to verify your account"
+            )
+            .then(res => {
+              this.router.navigate([`/login`]);
+            });
+        },
+        error => {
+          // console.log(error.error.non_field_errors[0], "lol");
+          this.genServ.sweetAlertAuthVerification(
+            "Error!! User could not be registered"
+          );
+        }
+      );
+    }
   }
 }

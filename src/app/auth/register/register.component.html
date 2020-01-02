@@ -19,42 +19,57 @@
                   <p class="card-subtitle line-on-side text-muted text-center font-small-3 mx-2 my-2"><span>
                       Admin Panel - Register New Admin</span></p>
                   <div class="card-body">
+                    <h5><small>(*) are Required Fields</small></h5>
                     <form class="form-horizontal" action="index.html" novalidate>
                       <fieldset class="form-group position-relative has-icon-left">
-                        <input type="text" class="form-control" id="user-name" placeholder="User Name" name="username"
-                          [(ngModel)]="credentials.username">
+                        <input type="text" class="form-control" placeholder="Firstname" name="firstname"
+                          [(ngModel)]="credentials.first_name">
                         <div class="form-control-position">
-                          <i class="ft-user"></i>
+                          <i class="ft-user"></i> *
+                        </div>
+                      </fieldset>
+                      <fieldset class="form-group position-relative has-icon-left">
+                        <input type="text" class="form-control" placeholder="Lastname" name="lastname"
+                          [(ngModel)]="credentials.last_name">
+                        <div class="form-control-position">
+                          <i class="ft-user-plus"></i> *
                         </div>
                       </fieldset>
                       <fieldset class="form-group position-relative has-icon-left">
                         <input type="email" class="form-control" id="user-email" placeholder="Your Email Address"
                           name="email" [(ngModel)]="credentials.email" required>
                         <div class="form-control-position">
-                          <i class="ft-mail"></i>
+                          <i class="ft-mail"></i> *
                         </div>
                       </fieldset>
                       <fieldset class="form-group position-relative has-icon-left">
                         <select name="role" class="form-control" id="user-role" required name="role"
                           [(ngModel)]="credentials.role">
-                          <option value="" selected>Select Role</option>
+                          <option value="" selected> * Select Role</option>
                           <option value="admin">Admin</option>
                           <option value="manager">Manager</option>
                           <option value="staff">Staff</option>
                         </select>
-
-
                       </fieldset>
+                      <fieldset class="form-group position-relative has-icon-left">
+                        <input type="text" class="form-control" placeholder="Your Phone Number" name="phone"
+                          [(ngModel)]="credentials.phone_number" required>
+                        <div class="form-control-position">
+                          <i class="ft-phone"></i>
+                        </div>
+                      </fieldset>
+
                       <fieldset class="form-group position-relative has-icon-left">
                         <input type="password" class="form-control" id="user-password" placeholder="Enter Password"
                           required name="password" [(ngModel)]="credentials.password">
                         <div class="form-control-position">
-                          <i class="la la-key"></i>
+                          <i class="la la-key"></i> *
                         </div>
                       </fieldset>
 
-                      <button type="submit" class="btn btn-outline-info btn-block" [disabled]="credentials.username === '' || credentials.password === '' || credentials.role ===
-                      '' || credentials.email === ''"><i class="ft-user"></i>
+                      <button type="button" class="btn btn-outline-info btn-block" [disabled]="credentials.first_name === '' || credentials.last_name === ''|| credentials.password
+                      === '' || credentials.role ===
+                      '' || credentials.email === ''" (click)="handleRegister()"><i class="ft-user"></i>
                         Register</button>
                     </form>
                   </div>

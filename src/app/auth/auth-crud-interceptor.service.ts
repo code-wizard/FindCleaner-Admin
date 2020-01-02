@@ -35,9 +35,9 @@ export class AuthcrudInterceptorService implements HttpInterceptor, OnInit {
         }
       });
     } else if (httpStatus === "login") {
+      console.log("Hehehe");
       req = req.clone({
         setHeaders: {
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json"
         }
       });

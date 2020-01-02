@@ -21,10 +21,10 @@
                   <div class="card-body">
                     <form class="form-horizontal" action="index.html" novalidate>
                       <fieldset class="form-group position-relative has-icon-left">
-                        <input type="text" class="form-control" id="user-name" placeholder="Your Username or Email"
-                          name="username" [(ngModel)]="credentials.username" required>
+                        <input type="text" class="form-control" id="email" placeholder="Your Email" name="email"
+                          [(ngModel)]="credentials.email" required>
                         <div class="form-control-position">
-                          <i class="ft-user"></i>
+                          <i class="ft-mail"></i>
                         </div>
                       </fieldset>
                       <fieldset class="form-group position-relative has-icon-left">
@@ -39,7 +39,8 @@
 
                         </div>
                         <div class="col-sm-6 col-12 float-sm-left text-center text-sm-right"><a
-                            href="recover-password.html" class="card-link">Forgot Password?</a></div>
+                            href="recover-password.html" class="card-link">Forgot Password?</a>
+                        </div>
                       </div>
                       <button type="button" (click)="handleLogin()" class="btn btn-outline-info btn-block"
                         [disabled]="credentials.username === '' || credentials.password === ''"><i

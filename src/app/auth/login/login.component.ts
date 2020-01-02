@@ -12,7 +12,6 @@ import { AuthService } from "../auth.service";
 })
 export class LoginComponent implements OnInit {
   credentials = {
-    username: "",
     email: "",
     password: ""
   };
@@ -27,38 +26,54 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   private get loginCredentials() {
-    const regExp = /\S+@\S+\.\S+/;
-    if (regExp.test(this.credentials.username)) {
-      this.credentials.email = this.credentials.username;
-      this.credentials.username = "";
+    let validationFields = "";
+    const obj = this.credentials;
+
+    for (const key in obj) {
+      if (!obj[key] && key !== "phone_number") {
+        validationFields += `${key} cannot be blank <br/>`;
+      }
     }
-    return { ...this.credentials };
+    return !validationFields ? { ...this.credentials } : validationFields;
   }
 
   handleLogin() {
     const credentials = this.loginCredentials;
-    this.endpoints.loginUser(credentials).subscribe(
-      (res: any) => {
-        const {
-          token,
-          user: { is_staff }
-        } = res;
-        if (is_staff) {
-          this.localStorage.saveToLocalStorage("token", token);
-          this.localStorage.saveToLocalStorage("AdminUserInfo", res.user);
-          this.endpoints.httpStatus = "allCalls";
-          const redirect = this.authService.redirectUrl
-            ? this.authService.redirectUrl
-            : "/adminDashboard";
-          this.router.navigate([`${redirect}`]);
-        } else {
-          this.genServ.sweetAlertAuthVerification("User is not an Admin");
+    if (typeof credentials === "string") {
+      this.genServ.sweetAlertHTML("Validation", credentials);
+    } else {
+      this.endpoints.loginUser(credentials).subscribe(
+        (res: any) => {
+          console.log(res, "respinse");
+          const {
+            token,
+            user: { is_staff }
+          } = res.user;
+          if (is_staff) {
+            this.localStorage.saveToLocalStorage("token", token);
+            this.localStorage.saveToLocalStorage(
+              "AdminUserInfo",
+              res.user.user
+            );
+            this.endpoints.httpStatus = "allCalls"; // reset all other api calls headers
+            const redirect = this.authService.redirectUrl
+              ? this.authService.redirectUrl
+              : "/adminDashboard";
+            this.router.navigate([`${redirect}`]);
+          } else {
+            this.genServ.sweetAlertAuthVerification("User is not an Admin");
+          }
+        },
+        error => {
+          const {
+            error: { non_field_errors }
+          } = error;
+          console.log(non_field_errors[0], "lol");
+          this.genServ.sweetAlertAuthVerification(
+            "Invalid Credentials. Make sure your account is verified"
+          );
         }
-      },
-      error => {
-        // console.log(error.error.non_field_errors[0], "lol");
-        this.genServ.sweetAlertAuthVerification("Invalid Credentials");
-      }
-    );
+      );
+    }
   }
 }
