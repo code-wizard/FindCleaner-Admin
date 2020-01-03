@@ -42,9 +42,10 @@ import { ShortenPipe } from "./shared/pipes/shorten.pipe";
 import { FilterPipe } from "./shared/pipes/filter.pipe";
 import { SessionsComponent } from "./sessions/sessions.component";
 import { LoginComponent } from "./auth/login/login.component";
-import { RegisterComponent } from "./auth/register/register.component";
 import { AdminUsersComponent } from "./admin-users/admin-users.component";
 import { AdminUserViewComponent } from "./admin-users/admin-user-view/admin-user-view.component";
+import { AdminProfileComponent } from "./admin-users/admin-profile/admin-profile.component";
+import { AddAdminComponent } from "./admin-users/add-admin/add-admin.component";
 
 @NgModule({
   declarations: [
@@ -62,9 +63,10 @@ import { AdminUserViewComponent } from "./admin-users/admin-user-view/admin-user
     FilterPipe,
     SessionsComponent,
     LoginComponent,
-    RegisterComponent,
     AdminUsersComponent,
-    AdminUserViewComponent
+    AdminUserViewComponent,
+    AdminProfileComponent,
+    AddAdminComponent
   ],
   imports: [
     AppRoutingModule,

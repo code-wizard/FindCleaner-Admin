@@ -8,10 +8,11 @@ import { TransactionViewComponent } from "./transactions/transaction-view/transa
 import { SettingsComponent } from "./settings/settings.component";
 import { SessionsComponent } from "./sessions/sessions.component";
 import { LoginComponent } from "./auth/login/login.component";
-import { RegisterComponent } from "./auth/register/register.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { AdminUsersComponent } from "./admin-users/admin-users.component";
 import { AdminUserViewComponent } from "./admin-users/admin-user-view/admin-user-view.component";
+import { AdminProfileComponent } from "./admin-users/admin-profile/admin-profile.component";
+import { AddAdminComponent } from "./admin-users/add-admin/add-admin.component";
 
 const routes: Routes = [
   {
@@ -50,6 +51,17 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: "create-admin",
+    component: AddAdminComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "admin-profile",
+    component: AdminProfileComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
     path: "sessions",
     component: SessionsComponent,
     canActivate: [AuthGuard]
@@ -57,10 +69,6 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent
-  },
-  {
-    path: "register",
-    component: RegisterComponent
   },
   { path: "settings", component: SettingsComponent, canActivate: [AuthGuard] },
   { path: "", redirectTo: "adminDashboard", pathMatch: "full" },

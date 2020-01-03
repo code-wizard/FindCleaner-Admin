@@ -17,12 +17,10 @@ export class AppComponent {
   constructor(location: Location, router: Router) {
     router.events.subscribe(val => {
       this.settingsURL = location.path().includes("/settings") ? true : false;
-      this.loginRegisterUrl =
-        location.path().includes("/login") ||
-        location.path().includes("/register")
-          ? true
-          : false;
+      this.loginRegisterUrl = location.path().includes("/login") ? true : false;
     });
+
+    // || location.path().includes("/register")
   }
 
   onActivate(event) {

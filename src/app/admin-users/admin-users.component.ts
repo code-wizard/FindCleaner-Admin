@@ -53,7 +53,7 @@ export class AdminUsersComponent implements OnInit {
 
   private getAdminUsers() {
     const apiUrl = this.endpoints.adminUsersUrl.getAllAdminUsers;
-    this.endpoints.fetch(apiUrl).subscribe((res: any) => {
+    this.endpoints.fetch(`${apiUrl}?ordering=-user`).subscribe((res: any) => {
       this.paginationUrl.viewCountStart = 1;
       this.setDataSource(res);
       console.log(res, "adminuers");
@@ -126,7 +126,7 @@ export class AdminUsersComponent implements OnInit {
   }
 
   handleReloadOnPagination(pageNumber) {
-    console.log(pageNumber, "hlo");
+    // console.log(pageNumber, "hlo");
     this.endpoints
       .fetchPaginationPage(
         `http://204.48.22.223/staff/users/?page=${pageNumber}`
@@ -142,15 +142,19 @@ export class AdminUsersComponent implements OnInit {
   }
 
   handleAcctTypeFilterActivation() {
-    this.filterStatus === "Activate"
-      ? (this.filterStatus = "Deactivate")
-      : (this.filterStatus = "Activate");
+    if (this.filterStatus === "Activate") {
+      this.filterStatus = "Deactivate";
+    } else {
+      this.filterStatus = "Activate";
+      this.getAdminUsers();
+    }
   }
 
   handleDelete(id) {
     this.genServ.sweetAlertDeletions("Admin User").then(res => {
       if (res.value) {
-        this.endpoints.deleteUser(id).subscribe(
+        const apiUrl = this.endpoints.adminUsersUrl.getUpdateDeleteAdminUser;
+        this.endpoints.delete(apiUrl, id).subscribe(
           res => {
             this.getAdminUsers();
             this.genServ.sweetAlertSucess(

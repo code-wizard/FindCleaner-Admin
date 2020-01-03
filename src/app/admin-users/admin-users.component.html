@@ -6,17 +6,36 @@
         <h4 class="card-title">ALL ADMIN USERS </h4>
         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
         <div class="heading-elements">
+          <ul class="list-inline mb-0">
+            <li>
+              <a class="btn btn-sm box-shadow-2 round btn-min-width pull-right" style="color:white!important;"
+                [ngClass]="{'btn-danger': filterStatus === 'Activate', 'btn-success': filterStatus === 'Deactivate'}"
+                (click)="handleAcctTypeFilterActivation()">{{filterStatus}} Role Filter
+              </a>
+            </li>
+          </ul>
         </div>
         <hr>
       </div>
 
 
       <div class="card-content">
-        <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;">
+        <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;"
+          *ngIf="filterStatus === 'Activate'; else roleFilter;">
           <input matInput (keyup)="applyFilter($event.target.value)"
             (focus)="hidShowPlaceHolder($event.target.value, 'onFocus')"
             (blur)="hidShowPlaceHolder($event.target.value, 'onBlur')" placeholder="{{myplaceHolder}}">
         </mat-form-field>
+        <ng-template #roleFilter>
+          <select class="custom-select d-block w-100" name="filter"
+            style="margin: 0 2em 1em 2em; width: 25% !important;" (change)="applyFilter($event.target.value)">
+            <option value="" selected>Select Role Type</option>
+            <option value="admin">Admin</option>
+            <option value="manager">Manager</option>
+            <option value="staff">Staff</option>
+          </select>
+
+        </ng-template>
 
 
         <div class="mat-elevation-z8 table-responsive">
@@ -41,7 +60,7 @@
                 <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> FirstName </th>
                 <td id="fixPadding" (click)="handleNavigation(row.username)" mat-cell *matCellDef="let row"
                   class="text-truncate">
-                  <span>{{row.user.first_name}}</span>
+                  <span>{{row.user.first_name | shorten: 'name'}}</span>
                 </td>
               </ng-container>
 
@@ -50,18 +69,19 @@
                 <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> LastName </th>
                 <td id="fixPadding" (click)="handleNavigation(row.user.id)" mat-cell *matCellDef="let row"
                   class="text-truncate">
-                  <span>{{row.user.last_name}}</span>
+                  <span>{{row.user.last_name | shorten: 'name' }}</span>
                 </td>
               </ng-container>
 
               <!-- User Type Column -->
               <ng-container matColumnDef="role">
-                <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+                <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Role Type </th>
                 <td id="fixPadding" (click)="handleNavigation(row.user.id)" mat-cell *matCellDef="let row"
                   class="text-truncate">
-                  <button type="button" [ngClass]="{'btn-outline-primary' : row.user.account_type === 'customer',
-                    'btn-outline-danger' : row.user.account_type === 'provider'}"
-                    class="btn btn-sm btn-outline-danger round">{{row.user.user_type | titlecase}}</button>
+                  <button type="button" [ngClass]="{'btn-outline-primary' : row.role === 'admin',
+                    'btn-outline-danger' : row.role === 'manager',
+                  'btn-outline-warning' : row.role === 'staff'}"
+                    class="btn btn-sm btn-outline-danger round">{{row.role | titlecase}}</button>
                 </td>
               </ng-container>
 
@@ -98,7 +118,7 @@
                 <td id="fixPadding" mat-cell *matCellDef="let row">
                   <i class="la la-link success font-large-1" style="cursor: pointer;"
                     (click)="handleNavigation(row.user.id)"></i>
-                  <i class="la la-trash danger font-large-1" (click)="handleDelete(row.user.username)"
+                  <i class="la la-trash danger font-large-1" (click)="handleDelete(row.user.id)"
                     style="cursor: pointer;"></i>
                 </td>
               </ng-container>
