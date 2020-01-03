@@ -28,7 +28,8 @@
           <div class="card-content" style="max-height: 540px !important; overflow: auto;">
             <ul class="list-group mb-3" *ngIf="filterContainer.length > 0; else noItems">
               <li class="list-group-item d-flex justify-content-between lh-condensed"
-                *ngFor="let item of filterContainer">
+                *ngFor="let item of filterContainer" [routerLink]="['/transactionsInsight', item.id]"
+                style="cursor: pointer;">
                 <div>
                   <h6 class="my-0">{{item.requirement_description | shorten: 'similarTransactions'}}</h6>
                   <small class="text-muted">{{item.service_provider.name}}</small>
@@ -41,6 +42,45 @@
                 <h5 class="text-center mt-3 mb-3">No Items Available</h5>
               </div>
             </ng-template>
+
+            <div class="mat-paginator-outer-container">
+              <div class="mat-paginator-container">
+                <div class="mat-paginator-page-size ng-star-inserted">
+                  <div class="mat-paginator-page-size-label">Items per page:</div>
+                  <div class="ng-star-inserted">10</div>
+                </div>
+                <div class="mat-paginator-range-actions">
+                  <div class="mat-paginator-range-label">{{paginationUrl.viewCountStart}} -
+                    {{paginationUrl.viewCountEnd}}
+                    of
+                    {{totalItemCount}}</div>
+
+                  <button class="mat-paginator-navigation-previous mat-icon-button" mat-icon-button="" type="button"
+                    [disabled]="!paginationUrl?.previous" (click)="handlePagination('previous')">
+                    <span class="mat-button-wrapper">
+                      <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+                      </svg>
+                    </span>
+                    <div class="mat-button-ripple mat-ripple mat-button-ripple-round">
+                    </div>
+                    <div class="mat-button-focus-overlay"></div>
+                  </button>
+
+                  <button class="mat-paginator-navigation-next mat-icon-button" mat-icon-button="" type="button"
+                    [disabled]="!paginationUrl?.next" (click)="handlePagination('next')">
+                    <span class="mat-button-wrapper">
+                      <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+                      </svg>
+                    </span>
+                    <div class="mat-button-ripple mat-ripple mat-button-ripple-round"></div>
+                    <div class="mat-button-focus-overlay"></div>
+                  </button>
+
+                </div>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -59,7 +99,7 @@
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
               </div>
               <div class="col-md-2">
-                <button class="btn btn-sm btn-blue-grey" routerLink="/transactionsInsight"
+                <button class="btn btn-sm btn-blue-grey" (click)="backToPreviousPage()"
                   style="float: right;">Back</button>
               </div>
             </div>

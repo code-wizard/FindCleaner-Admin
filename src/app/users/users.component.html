@@ -27,8 +27,7 @@
         </mat-form-field>
         <ng-template #acctTypeFilter>
           <select class="custom-select d-block w-100" name="filter"
-            style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;"
-            (change)="applyFilter($event.target.value)">
+            style="margin: 0 2em 1em 2em; width: 25% !important;" (change)="applyFilter($event.target.value)">
             <option value="" selected>Select Account Type</option>
             <option value="provider">Provider</option>
             <option value="customer">Customer</option>

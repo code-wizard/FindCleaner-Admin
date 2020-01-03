@@ -74,6 +74,7 @@ export class UsersComponent implements OnInit {
     count > this.paginationUrl.viewCountEnd
       ? this.paginationUrl
       : (this.paginationUrl.viewCountEnd = count);
+    // console.log(results, "users");
     this.dataSource = new MatTableDataSource(results);
 
     this.dataSource.sort = this.sort;
@@ -125,7 +126,7 @@ export class UsersComponent implements OnInit {
   }
 
   handleReloadOnPagination(pageNumber) {
-    console.log(pageNumber, "hlo");
+    // console.log(pageNumber, "hlo");
     this.endpoints
       .fetchPaginationPage(
         `http://204.48.22.223/dashboard/users/?page=${pageNumber}`
@@ -141,9 +142,12 @@ export class UsersComponent implements OnInit {
   }
 
   handleAcctTypeFilterActivation() {
-    this.filterStatus === "Activate"
-      ? (this.filterStatus = "Deactivate")
-      : (this.filterStatus = "Activate");
+    if (this.filterStatus === "Activate") {
+      this.filterStatus = "Deactivate";
+    } else {
+      this.filterStatus = "Activate";
+      this.getUsers();
+    }
   }
 
   handleDelete(username) {
