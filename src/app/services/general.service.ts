@@ -40,6 +40,17 @@ export class GeneralService {
     return of(null);
   };
 
+  sweetAlertCreate(type) {
+    return Swal.fire({
+      title: `Create ${type}?`,
+      type: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, create it!"
+    });
+  }
+
   sweetAlertUpdates(type) {
     return Swal.fire({
       title: `Update ${type}?`,

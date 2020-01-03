@@ -15,23 +15,31 @@
     <div class="navbar-container content">
       <div class="collapse navbar-collapse" id="navbar-mobile">
         <ul class="nav navbar-nav mr-auto float-left">
-
-          <!-- <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon ft-search"></i></a>
-            <div class="search-input">
-              <input class="input" type="text" placeholder="Search">
-            </div>
-          </li> -->
         </ul>
         <ul class="nav navbar-nav float-right">
-
-          <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link"
-              data-toggle="dropdown"><span class="mr-1 user-name text-bold-700">{{userDetails?.username}}</span><span
-                class="avatar avatar-online"><img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                  alt="avatar"><i></i></span></a>
-            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" routerLink="/settings"><i
-                  class="ft-user"></i> Settings</a>
-              <div class="dropdown-divider"></div><a class="dropdown-item" (click)="handlelogout()"><i
-                  class="ft-power"></i> Logout</a>
+          <li class="dropdown dropdown-user nav-item">
+            <a class="dropdown-toggle nav-link dropdown-user-link" data-toggle="dropdown">
+              <span class="mr-1 user-name text-bold-700">{{userDetails?.username}}</span>
+              <span class="avatar avatar-online">
+                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="avatar">
+                <i></i>
+              </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" routerLink="/admin-profile">
+                <i class="ft-user"></i> Profile
+              </a>
+              <a class="dropdown-item" routerLink="/create-admin">
+                <i class="ft-users"></i> Add New User
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" routerLink="/settings">
+                <i class="ft-settings"></i> Settings
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="handlelogout()">
+                <i class="ft-power"></i> Logout
+              </a>
             </div>
           </li>
 
