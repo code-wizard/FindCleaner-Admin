@@ -1,12 +1,27 @@
-table {
-    width: 100%;
-  }
-  
-  .mat-form-field {
-    /* font-size: 14px; */
-    width: 100%;
-  }
-  
-  td, th {
-    width: 25%;
-  }
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+li:hover.lh-condensed {
+  cursor: pointer;
+  background-color: #00BCD4;
+}
+
+
+li:hover.lh-condensed h6 {
+  color: #FFFFFF !important;
+}
+
+li:hover.lh-condensed small {
+  color: #FFFFFF !important;
+}
+
+li:hover.lh-condensed span {
+  color: #FFFFFF !important;
+}
+
+li:hover.lh-condensed button {
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+}

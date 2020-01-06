@@ -4,6 +4,7 @@ import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { EndpointsService } from "../services/config/endpoints.service";
 import { GeneralService } from "../services/general.service";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-dashboard",
@@ -44,7 +45,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private endpoints: EndpointsService,
-    private genServ: GeneralService
+    private genServ: GeneralService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -83,9 +86,8 @@ export class DashboardComponent implements OnInit {
 
   private getSessions() {
     this.endpoints.fetchAllSessions().subscribe((result: any) => {
-      const { results, count } = result;
-      this.totalSessionsCount = count;
-      this.dataSourceSessions = results;
+      this.dataSourceSessions = result;
+      this.totalSessionsCount = result.length;
     });
   }
 
@@ -134,6 +136,16 @@ export class DashboardComponent implements OnInit {
           this.setDataSource(res);
         });
     }
+  }
+
+  handleNavigation(id) {
+    let redirect = "";
+    this.route.snapshot.url.forEach((res: any) => {
+      redirect += res.path + "/";
+    });
+    this.router.navigate(["/transactionsInsight", id], {
+      queryParams: { redirectTo: redirect }
+    });
   }
 
   hidShowPlaceHolder(value, type) {

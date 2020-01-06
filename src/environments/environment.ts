@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://204.48.22.223/'
+  apiUrl: "https://dev.findcleaner.ng/"
 };
 
 /*

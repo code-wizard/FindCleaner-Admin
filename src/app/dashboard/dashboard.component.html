@@ -98,41 +98,48 @@
           <h4 class="card-title">Active Sessions</h4>
           <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
           <div class="heading-elements">
-            <ul class="list-inline mb-0">
-              <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-            </ul>
+
           </div>
         </div>
         <div class="card-content">
-          <div id="new-orders" class="media-list position-relative">
-            <div class="table-responsive">
-              <table id="new-orders-table" class="table table-hover table-xl mb-0"
-                *ngIf="dataSourceSessions.length > 0;  else noItems">
-                <thead>
-                  <tr>
-                    <th class="border-top-0">Description</th>
-                    <!-- <th class="border-top-0">Customers</th> -->
-                    <th class="border-top-0">Total</th>
-                  </tr>
-                </thead>
-                <tbody *ngFor="let session of dataSourceSessions;">
-                  <tr [routerLink]="['/transactionsInsight/', session.id]" style="cursor: pointer;">
-                    <td class="text-truncate">{{session.requirement_description | shorten : 'similarTransactions'}}</td>
-                    <!-- <td class="text-truncate">
-                      {{session.service_provider.name | shorten}}
-                    </td> -->
-                    <td class="text-truncate">{{session.total_amount | currency: '# '}}</td>
-                  </tr>
-                </tbody>
-              </table>
 
-              <ng-template #noItems>
-                <mat-card class="text-center">No Items Available</mat-card>
-              </ng-template>
-            </div>
-          </div>
+          <ul class="list-group mb-3" *ngIf="dataSourceSessions.length > 0;  else noItems">
+            <li class="list-group-item d-flex justify-content-between lh-condensed "
+              *ngFor="let session of dataSourceSessions; let i = index;" (click)="handleNavigation(session.id)"
+              style="cursor: pointer;">
+              <div class="similar" style="width: 70%;">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6 class="my-0">
+                      {{session.requirement_description | shorten : 'similarTransactions' | uppercase}}
+
+
+                    </h6>
+                    <small class="text-muted">{{session.service_provider.name | titlecase}}</small>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="button" *ngIf="session.payment_mode !== 'bank_transfer'; else bank"
+                      class="btn btn-sm round" [ngClass]="{ 'btn-outline-info' : session.payment_mode === 'cash',
+                  'btn-outline-success' : session.payment_mode === 'card'
+                  }">{{session.payment_mode | titlecase}}</button>
+                    <ng-template #bank>
+                      <button type="button" class="btn btn-sm btn-outline-warning round">Bank
+                        Transfer</button>
+                    </ng-template>
+                  </div>
+                </div>
+
+              </div>
+              <span class="text-muted similar">{{session.total_amount | currency: '# '}}</span>
+            </li>
+          </ul>
+
+          <ng-template #noItems>
+            <mat-card class="text-center">No Items Available</mat-card>
+          </ng-template>
         </div>
       </div>
+
     </div>
     <!-- Active Sessions -->
 
