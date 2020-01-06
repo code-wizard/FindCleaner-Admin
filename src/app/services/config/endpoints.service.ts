@@ -21,10 +21,11 @@ export class EndpointsService {
     filterAdminUsers: "staff/users/?search="
   };
 
-  private transactionsUrl = {
+  public transactionsUrl = {
     getAllTransactions: "dashboard/all-transaction",
     getUpdateDeleteTransaction: "dashboard/transaction",
-    filterTransactions: "dashboard/all-transaction/?search="
+    filterTransactions: "dashboard/all-transaction/?search=",
+    dateRangeFilterTransaction: `dashboard/transactions`
   };
 
   private sessionsUrl = {
@@ -39,6 +40,8 @@ export class EndpointsService {
     register: "staff/signup/",
     login: "staff/login/"
   };
+
+  public changePassword = "/password-change/";
 
   constructor(private http: HttpClient) {}
 

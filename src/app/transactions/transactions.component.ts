@@ -115,9 +115,18 @@ export class TransactionsComponent implements OnInit {
   }
 
   handleDateFilterActivation() {
-    this.filterStatus === "Activate"
-      ? (this.filterStatus = "Deactivate")
-      : (this.filterStatus = "Activate");
+    if (this.filterStatus === "Activate") {
+      this.filterStatus = "Deactivate";
+    } else {
+      this.filterStatus = "Activate";
+      this.getTransactions();
+      this.paginationUrl = {
+        next: "",
+        previous: "",
+        viewCountStart: 1,
+        viewCountEnd: 10
+      };
+    }
   }
 
   handleDateFilter(value, type) {
@@ -126,8 +135,14 @@ export class TransactionsComponent implements OnInit {
     } else {
       this.dateFilter.to = value;
     }
-    // if (Object.keys(this.dateFilter) === "") {
-    // }
+    console.log(this.dateFilter, "lol");
+    if (this.dateFilter.from && this.dateFilter.to) {
+      const apiUrl = `${this.endpoints.transactionsUrl.dateRangeFilterTransaction}/${this.dateFilter.from}/${this.dateFilter.to}`;
+
+      this.endpoints.fetch(apiUrl).subscribe(res => {
+        this.setDataSource(res);
+      });
+    }
   }
 
   handlePagination(type) {
@@ -171,12 +186,12 @@ export class TransactionsComponent implements OnInit {
     }
   }
 
-  handleNavigation(username) {
+  handleNavigation(id) {
     let redirect = "";
     this.route.snapshot.url.forEach((res: any) => {
       redirect += res.path + "/";
     });
-    this.router.navigate(["/transactionsInsight", username], {
+    this.router.navigate(["/transactionsInsight", id], {
       queryParams: { redirectTo: redirect }
     });
   }

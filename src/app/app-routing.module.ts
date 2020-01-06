@@ -62,7 +62,7 @@ const routes: Routes = [
   },
 
   {
-    path: "sessions",
+    path: "sessions/pages/:pageNumber",
     component: SessionsComponent,
     canActivate: [AuthGuard]
   },

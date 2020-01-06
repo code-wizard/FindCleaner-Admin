@@ -2,3 +2,21 @@
   display: flex;
   flex-direction: column;
 }
+
+li:hover.lh-condensed {
+  cursor: pointer;
+  background-color: #00BCD4;
+}
+
+
+li:hover.lh-condensed h6 {
+  color: #FFFFFF !important;
+}
+
+li:hover.lh-condensed small {
+  color: #FFFFFF !important;
+}
+
+li:hover.lh-condensed span {
+  color: #FFFFFF !important;
+}

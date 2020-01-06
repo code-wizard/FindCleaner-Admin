@@ -27,14 +27,14 @@
 
           <div class="card-content" style="max-height: 540px !important; overflow: auto;">
             <ul class="list-group mb-3" *ngIf="filterContainer.length > 0; else noItems">
-              <li class="list-group-item d-flex justify-content-between lh-condensed"
+              <li class="list-group-item d-flex justify-content-between lh-condensed "
                 *ngFor="let item of filterContainer" [routerLink]="['/transactionsInsight', item.id]"
                 style="cursor: pointer;">
-                <div>
-                  <h6 class="my-0">{{item.requirement_description | shorten: 'similarTransactions'}}</h6>
-                  <small class="text-muted">{{item.service_provider.name}}</small>
+                <div class="similar">
+                  <h6 class="my-0">{{item.requirement_description | shorten: 'similarTransactions' | uppercase}}</h6>
+                  <small class="text-muted">{{item.service_provider.name | titlecase}}</small>
                 </div>
-                <span class="text-muted">{{item.total_amount | currency: '#'}}</span>
+                <span class="text-muted similar">{{item.total_amount | currency: '#'}}</span>
               </li>
             </ul>
             <ng-template #noItems>

@@ -35,15 +35,16 @@
           <div id="steady-spinner" *ngIf="!dataSource; else displayTable"></div>
 
           <ng-template #displayTable>
-            <table mat-table [dataSource]="dataSource" matSort id="recent-orders" class="table table-hover mb-0">
+            <table mat-table [dataSource]="dataSource" matSort id="recent-orders" class="table table-hover mb-0"
+              *ngIf="dataSource.data.length > 0; else noItems">
 
               <!-- Index Column -->
               <ng-container matColumnDef="index">
                 <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Index </th>
-                <td id="fixPadding" mat-cell *matCellDef="let row;" class="text-truncate"
-                  [routerLink]="['/transactionsInsight', row.id]">
+                <td id="fixPadding" mat-cell *matCellDef="let row; let i = index;" class="text-truncate"
+                  (click)="handleNavigation(row.id)">
                   <a style="color:#00BCD4;">
-                    {{row.count}}
+                    TRANS-{{i + paginationUrl.viewCountStart}}
                   </a>
                 </td>
 
@@ -54,7 +55,7 @@
               <ng-container matColumnDef="description">
                 <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
                 <td id="fixPadding" mat-cell *matCellDef="let row" class="text-truncate"
-                  [routerLink]="['/transactionsInsight', row.id]">
+                  (click)="handleNavigation(row.id)">
                   <span>{{row.requirement_description | titlecase}}</span>
                 </td>
               </ng-container>
@@ -63,7 +64,7 @@
               <ng-container matColumnDef="provider">
                 <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Provider </th>
                 <td id="fixPadding" mat-cell *matCellDef="let row" class="text-truncate"
-                  [routerLink]="['/transactionsInsight', row.id]">
+                  (click)="handleNavigation(row.id)">
                   <span>{{row.service_provider.name | shorten : 'name'}}</span>
                 </td>
               </ng-container>
@@ -73,7 +74,7 @@
               <ng-container matColumnDef="paymentMode">
                 <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Payment Type </th>
                 <td id="fixPadding" mat-cell *matCellDef="let row" class="text-truncate"
-                  [routerLink]="['/transactionsInsight', row.id]">
+                  (click)="handleNavigation(row.id)">
                   <button type="button" *ngIf="row.payment_mode !== 'bank_transfer'; else bank" class="btn btn-sm round"
                     [ngClass]="{ 'btn-outline-info' : row.payment_mode === 'cash',
                   'btn-outline-success' : row.payment_mode === 'card'
@@ -88,7 +89,7 @@
               <ng-container matColumnDef="status">
                 <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                 <td id="fixPadding" mat-cell *matCellDef="let row" class="text-truncate"
-                  [routerLink]="['/transactionsInsight', row.id]">
+                  (click)="handleNavigation(row.id)">
                   <i class="la la-dot-circle-o  font-medium-1" [ngClass]="{ 'success' : row.status === 'completed',
                   'info' : row.status === 'accepted',
                   'danger' : row.status === 'cancel',
@@ -102,7 +103,7 @@
               <ng-container matColumnDef="totalAmount">
                 <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
                 <td id="fixPadding" mat-cell *matCellDef="let row" class="text-truncate"
-                  [routerLink]="['/transactionsInsight', row.id]">
+                  (click)="handleNavigation(row.id)">
                   <span>{{row.total_amount | currency: 'NGN ' | shorten : 'currency'}}</span>
                 </td>
               </ng-container>
@@ -110,9 +111,9 @@
               <!-- Action Column -->
               <ng-container matColumnDef="action">
                 <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
-                <td id="fixPadding" mat-cell *matCellDef="let element">
+                <td id="fixPadding" mat-cell *matCellDef="let row">
                   <i class="la la-link success font-large-1" style="cursor: pointer;"
-                    [routerLink]="['/transactionsInsight', element.id]"></i>
+                    (click)="handleNavigation(row.id)"></i>
                   <i class="la la-trash danger font-large-1" (click)="handleDelete(element.id)"
                     style="cursor: pointer;"></i>
 
@@ -123,10 +124,53 @@
               <tr mat-row *matRowDef="let row; columns: displayedColumns;">
               </tr>
             </table>
+
+            <ng-template #noItems>
+              <mat-card class="text-center">No Items Available</mat-card>
+            </ng-template>
+
           </ng-template>
 
-          <mat-paginator [pageSize]="10"></mat-paginator>
-          <!-- [pageSizeOptions]="[5, 10, 25, 100]" -->
+
+
+          <div class="mat-paginator-outer-container">
+            <div class="mat-paginator-container">
+              <div class="mat-paginator-page-size ng-star-inserted">
+                <div class="mat-paginator-page-size-label">Items per page:</div>
+                <div class="ng-star-inserted">10</div>
+              </div>
+              <div class="mat-paginator-range-actions">
+                <div class="mat-paginator-range-label">{{paginationUrl.viewCountStart}} -
+                  {{paginationUrl.viewCountEnd}}
+                  of
+                  {{totalItemCount}}</div>
+
+                <button class="mat-paginator-navigation-previous mat-icon-button" mat-icon-button="" type="button"
+                  [disabled]="!paginationUrl?.previous" (click)="handlePagination('previous')">
+                  <span class="mat-button-wrapper">
+                    <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                      <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+                    </svg>
+                  </span>
+                  <div class="mat-button-ripple mat-ripple mat-button-ripple-round">
+                  </div>
+                  <div class="mat-button-focus-overlay"></div>
+                </button>
+
+                <button class="mat-paginator-navigation-next mat-icon-button" mat-icon-button="" type="button"
+                  [disabled]="!paginationUrl?.next" (click)="handlePagination('next')">
+                  <span class="mat-button-wrapper">
+                    <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+                    </svg>
+                  </span>
+                  <div class="mat-button-ripple mat-ripple mat-button-ripple-round"></div>
+                  <div class="mat-button-focus-overlay"></div>
+                </button>
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -66,7 +66,7 @@ export class TransactionViewComponent implements OnInit {
       !projections[0].service_deliver_on
         ? (projections[0].service_deliver_on = "Not Due")
         : projections[0].service_deliver_on;
-      console.log(projections, "transactions");
+      // console.log(projections, "transactions");
       this.filterContainer = projections;
     } else {
       this.filterContainer = [];
@@ -95,15 +95,25 @@ export class TransactionViewComponent implements OnInit {
   private getSimilarTransactions(filter) {
     let name = "";
     if (filter === "provider") {
-      name = this.transactionDetails.service_provider.name;
+      name = this.transactionDetails.service_provider.name.split(" ");
+      name = name[0];
     } else if (filter === "customer") {
-      name = this.transactionDetails.customer.name;
+      name = this.transactionDetails.customer.name.split(" ");
+      name = name[0];
     }
 
     this.endpoints
       .fetchFilteredTransactions(name.trim().toLowerCase())
-      .subscribe(res => {
-        console.log(res, "filted transactions");
+      .subscribe((res: any) => {
+        const { results, count } = res;
+        const { created_at } = this.transactionDetails;
+        for (const result of results) {
+          if (result.created_at === created_at) {
+            results.splice(results.indexOf(result), 1);
+            res.count = count - 1;
+          }
+        }
+        // console.log(res, "filted transactions");
         this.setDataSource(res);
       });
   }
