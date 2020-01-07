@@ -23,6 +23,7 @@
     </div>
   </div>
   <div class="content-wrapper">
+
     <div class="content-body">
       <section id="currency-exchange">
         <div class="row">
@@ -30,50 +31,62 @@
             <div class="card text-center">
               <div class="card-header mt-3">
                 <h1 class="text-bold-500 info">
-                  Change System Wide Settings
+                  Add New Services
                 </h1>
               </div>
               <div class="card-subtitle p-0 mx-2">
-                <h5 class="text-bold-500"> Set the Default Currency and Base Amount</h5>
+                <h5 class="text-bold-500"> Set the Description and Base Amount for New Services</h5>
               </div>
 
 
               <div class="card-body mt-2">
-                <div id="steady-spinner" *ngIf="(settingsDetails | json) === '{}';  else settings"></div>
-                <ng-template #settings>
-                  <div class="row mr-5 ml-5">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="projectinput5">CURRENCY </label>
-                        <select id="projectinput5" name="currency" class="form-control"
-                          [(ngModel)]="settingsDetails.default_currency">
-                          <option value="none" selected="" disabled="">Select</option>
-                          <option value="Naira">Naira</option>
-                          <option value="Pounds">Pounds</option>
-                          <option value="Dollars">Dollars</option>
-                          <option value="Rupees">Rupees</option>
-                        </select>
-                      </div>
+
+                <form class="form-horizontal" action="index.html" novalidate>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <fieldset class="form-group position-relative has-icon-left">
+                        <input type="text" class="form-control" placeholder="Service Category" name="category"
+                          [(ngModel)]="serviceDetails.service_category">
+
+                      </fieldset>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <fieldset class="form-group position-relative has-icon-left">
+                        <input type="text" class="form-control" placeholder="Service Description" name="description"
+                          [(ngModel)]="serviceDetails.service">
+
+                      </fieldset>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <fieldset class="form-group position-relative has-icon-left">
+                        <input type="number" class="form-control" placeholder=" Service Base Price" name="basePrice"
+                          [(ngModel)]="serviceDetails.agency_base_price" required>
+
+                      </fieldset>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <fieldset class="form-group position-relative has-icon-left">
+                        <input type="number" class="form-control" placeholder="Individual Base Price"
+                          name="individualBasePrice" [(ngModel)]="serviceDetails.individual_base_price" required>
+
+                      </fieldset>
                     </div>
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="projectinput6">SERVICE BASE PRICE </label>
-                        <input type="text" id="projectinput1" class="form-control" placeholder="Base Amount"
-                          name="amount" [(ngModel)]="settingsDetails.service_base_price">
-                      </div>
-                    </div>
                   </div>
-                </ng-template>
 
-                <button type="button" class="btn btn-danger exchange my-2" (click)="handleUpdate()">
-                  <span class="font-medium-1"> Update </span>
-                </button>
+                  <button type="button" class="btn btn-outline-info btn-block" 
+                  [disabled]="serviceDetails.service_category === '' || serviceDetails.individual_base_price === ''||
+                    serviceDetails.agency_base_price === '' || serviceDetails.service === ''" (click)="handleServiceCreation()"><i class="ft-user"></i>
+                    Create</button>
+                </form>
+
+
               </div>
             </div>
           </div>
         </div>
       </section>
     </div>
+
   </div>
 </div>

@@ -8,62 +8,60 @@ import { GeneralService } from "../services/general.service";
   styleUrls: ["./settings.component.css"]
 })
 export class SettingsComponent implements OnInit {
-  settingsDetails = {};
+  serviceDetails = {
+    service_category: "",
+    service: "",
+    avatar: null,
+    agency_base_price: "",
+    individual_base_price: ""
+  };
   constructor(
     private endpoints: EndpointsService,
     private genServ: GeneralService
   ) {}
 
-  private getSettings(settings?) {
-    if (!settings) {
-      this.endpoints.fetchSettings().subscribe(res => {
-        delete res["id"];
-        delete res["created_at"];
-        delete res["updated_at"];
-        this.settingsDetails = res;
-      });
-    } else {
-      delete settings["id"];
-      delete settings["created_at"];
-      delete settings["updated_at"];
-      this.settingsDetails = settings;
-    }
-  }
-
-  private get updatedSettingsDetails() {
+  private get getserviceDetails() {
     let validationFields = "";
-    const obj = this.settingsDetails;
+    const obj = this.serviceDetails;
 
     for (const key in obj) {
-      if (!obj[key]) {
+      if (!obj[key] && key !== "avatar") {
         validationFields += `${key} cannot be blank <br/>`;
       }
     }
-    return !validationFields ? { ...this.settingsDetails } : validationFields;
+    return !validationFields ? { ...this.serviceDetails } : validationFields;
   }
 
-  ngOnInit() {
-    this.getSettings();
-  }
+  ngOnInit() {}
 
-  handleUpdate() {
-    const updatedSettingsDetails = this.updatedSettingsDetails;
-    if (typeof updatedSettingsDetails === "string") {
-      this.genServ.sweetAlertHTML("Validation", updatedSettingsDetails);
+  handleServiceCreation() {
+    const serviceDetails = this.getserviceDetails;
+    if (typeof serviceDetails === "string") {
+      this.genServ.sweetAlertHTML("Validation", serviceDetails);
     } else {
-      this.genServ.sweetAlertUpdates("Settings").then(response => {
+      this.genServ.sweetAlertCreate("New Service").then(response => {
         if (response.value) {
-          this.endpoints.updateSettings(updatedSettingsDetails).subscribe(
+          const apiUrl = this.endpoints.serviceUrl.creatService;
+          this.endpoints.register(apiUrl, serviceDetails).subscribe(
             res => {
-              this.getSettings(res);
-              this.genServ.sweetAlertSucess(
-                "Settings Updated",
-                "Update Successful"
-              );
+              this.genServ
+                .sweetAlertSucess("Service Created", "Creation Successful")
+                .then(
+                  res =>
+                    (this.serviceDetails = {
+                      service_category: "",
+                      service: "",
+                      avatar: null,
+                      agency_base_price: "",
+                      individual_base_price: ""
+                    })
+                );
             },
             error => {
-              console.log(error, "error on update");
-              this.genServ.sweetAlertError("Sorry, Update Not Successful");
+              console.log(error, "error on servicecreate");
+              this.genServ.sweetAlertError(
+                "Sorry, Service Creation Not Successful"
+              );
             }
           );
         }

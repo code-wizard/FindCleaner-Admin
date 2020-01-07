@@ -32,6 +32,10 @@ export class EndpointsService {
     getActiveSessions: "dashboard/active-session/"
   };
 
+  public serviceUrl = {
+    creatService: "services/new-service/"
+  };
+
   private settingsUrl = {
     getUpdateSettings: "dashboard/settings/"
   };
@@ -44,6 +48,14 @@ export class EndpointsService {
   public changePassword = "/password-change/";
 
   constructor(private http: HttpClient) {}
+
+  register(apiUrl, credentials) {
+    try {
+      return this.http.post(`${this.host}${apiUrl}`, credentials);
+    } catch (error) {
+      alert(error);
+    }
+  }
 
   fetch(apiUrl) {
     try {
