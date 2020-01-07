@@ -136,3 +136,25 @@ td.text-truncate {
   margin-top: 11em;
   float: right;
 }
+
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.table #fixPadding {
+  padding: 16px 20px !important;
+}
+
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+  padding: none !important;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}

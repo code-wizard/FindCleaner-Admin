@@ -13,19 +13,28 @@
                 (click)="handleAcctTypeFilterActivation()">{{filterStatus}} Role Filter
               </a>
             </li>
+
           </ul>
         </div>
         <hr>
       </div>
 
 
-      <div class="card-content">
-        <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;"
-          *ngIf="filterStatus === 'Activate'; else roleFilter;">
-          <input matInput (keyup)="applyFilter($event.target.value)"
-            (focus)="hidShowPlaceHolder($event.target.value, 'onFocus')"
-            (blur)="hidShowPlaceHolder($event.target.value, 'onBlur')" placeholder="{{myplaceHolder}}">
-        </mat-form-field>
+      <div class="card-content row">
+        <div class="col-md-10">
+          <mat-form-field style="margin: 0 2em 1em 2em; border-bottom:1px solid; width: 25% !important;"
+            *ngIf="filterStatus === 'Activate'; else roleFilter;">
+            <input matInput (keyup)="applyFilter($event.target.value)"
+              (focus)="hidShowPlaceHolder($event.target.value, 'onFocus')"
+              (blur)="hidShowPlaceHolder($event.target.value, 'onBlur')" placeholder="{{myplaceHolder}}">
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <a class="btn btn-sm box-shadow-2 round btn-min-width btn-info"
+            style="margin-top: -1em; color: white; margin-left: 10px;" routerLink="/create-admin">
+            Add New User
+          </a>
+        </div>
         <ng-template #roleFilter>
           <select class="custom-select d-block w-100" name="filter"
             style="margin: 0 2em 1em 2em; width: 25% !important;" (change)="applyFilter($event.target.value)">
