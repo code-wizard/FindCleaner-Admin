@@ -72,6 +72,14 @@
                       </fieldset>
                     </div>
 
+                     <div class="col-md-6 mb-3">
+                       <fieldset class="form-group position-relative has-icon-left">
+                         <input type="file" class="form-control" placeholder="Avatar"
+                           name="avatar" (change)="handleFileInput($event)" required>
+
+                       </fieldset>
+                     </div>
+
                   </div>
 
                   <button type="button" class="btn btn-outline-info " 

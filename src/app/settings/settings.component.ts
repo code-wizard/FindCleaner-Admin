@@ -11,7 +11,7 @@ export class SettingsComponent implements OnInit {
   serviceDetails = {
     service_category: "",
     service: "",
-    avatar: null,
+    avatar: new FormData(),
     agency_base_price: "",
     individual_base_price: ""
   };
@@ -34,8 +34,17 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {}
 
+  handleFileInput(event) {
+    if (event.target.files.length > 0) {
+      const image = event.target.files[0];
+      this.serviceDetails.avatar.append("image", image);
+    }
+  }
+
   handleServiceCreation() {
+    this.endpoints.httpStatus = "service";
     const serviceDetails = this.getserviceDetails;
+    console.log(serviceDetails, "detauls");
     if (typeof serviceDetails === "string") {
       this.genServ.sweetAlertHTML("Validation", serviceDetails);
     } else {
@@ -46,16 +55,16 @@ export class SettingsComponent implements OnInit {
             res => {
               this.genServ
                 .sweetAlertSucess("Service Created", "Creation Successful")
-                .then(
-                  res =>
-                    (this.serviceDetails = {
-                      service_category: "",
-                      service: "",
-                      avatar: null,
-                      agency_base_price: "",
-                      individual_base_price: ""
-                    })
-                );
+                .then(res => {
+                  this.serviceDetails = {
+                    service_category: "",
+                    service: "",
+                    avatar: new FormData(),
+                    agency_base_price: "",
+                    individual_base_price: ""
+                  };
+                  this.endpoints.httpStatus = "allCalls";
+                });
             },
             error => {
               console.log(error, "error on servicecreate");

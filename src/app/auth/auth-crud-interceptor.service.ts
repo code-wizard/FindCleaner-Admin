@@ -34,8 +34,16 @@ export class AuthcrudInterceptorService implements HttpInterceptor, OnInit {
           // "Content-Type": "application/json"
         }
       });
-    } else if (httpStatus === "login") {
+    } else if (httpStatus === "service") {
       console.log("Hehehe");
+      req = req.clone({
+        setHeaders: {
+          Authorization: `jwt ${token}`,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "multipart/form-data"
+        }
+      });
+    } else if (httpStatus === "login") {
       req = req.clone({
         setHeaders: {
           "Content-Type": "application/json"
