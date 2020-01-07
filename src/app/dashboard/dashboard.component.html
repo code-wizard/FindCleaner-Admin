@@ -173,17 +173,17 @@
 
                 <!-- Index Column -->
                 <ng-container matColumnDef="index">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Index </th>
-                  <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row; let i = index;"
-                    class="text-truncate">
+                  <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Index </th>
+                  <td id="fixPadding" [routerLink]="['/usersInsight', row.username]" mat-cell
+                    *matCellDef="let row; let i = index;" class="text-truncate">
                     {{i + paginationUrl.viewCountStart}}
                   </td>
                 </ng-container>
 
                 <!-- First Name Column -->
                 <ng-container matColumnDef="firstName">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> FirstName </th>
-                  <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row"
+                  <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> FirstName </th>
+                  <td id="fixPadding" [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row"
                     class="text-truncate">
                     <span>{{row.first_name}}</span>
                   </td>
@@ -191,8 +191,8 @@
 
                 <!-- Last Name Column -->
                 <ng-container matColumnDef="lastName">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> LastName </th>
-                  <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row"
+                  <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> LastName </th>
+                  <td id="fixPadding" [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row"
                     class="text-truncate">
                     <span>{{row.last_name}}</span>
                   </td>
@@ -200,8 +200,8 @@
 
                 <!-- Account Type Column -->
                 <ng-container matColumnDef="accountType">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Type </th>
-                  <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row"
+                  <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Account Type </th>
+                  <td id="fixPadding" [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row"
                     class="text-truncate">
                     <button type="button" [ngClass]="{'btn-outline-primary' : row.account_type === 'customer',
                     'btn-outline-danger' : row.account_type === 'provider'}"
@@ -211,8 +211,8 @@
 
                 <!-- Email Column -->
                 <ng-container matColumnDef="email">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                  <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row"
+                  <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                  <td id="fixPadding" [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row"
                     class="text-truncate">
                     <span>{{row.email}}</span>
                   </td>
@@ -220,8 +220,8 @@
 
                 <!-- PhoneNumber Column -->
                 <ng-container matColumnDef="phoneNumber">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
-                  <td [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row"
+                  <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
+                  <td id="fixPadding" [routerLink]="['/usersInsight', row.username]" mat-cell *matCellDef="let row"
                     class="text-truncate">
                     <span>{{row.phone_number}}</span>
                   </td>
@@ -229,8 +229,8 @@
 
                 <!-- Action Column -->
                 <ng-container matColumnDef="action">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
-                  <td mat-cell *matCellDef="let element">
+                  <th id="fixPadding" mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
+                  <td id="fixPadding" mat-cell *matCellDef="let element">
                     <i class="la la-link success font-large-1" style="cursor: pointer;"
                       [routerLink]="['/usersInsight', element.username]"></i>
                     <i class="la la-trash danger font-large-1" (click)="handleDelete(element.username)"
