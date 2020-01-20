@@ -1,0 +1,89 @@
+        <div class="card">
+
+
+
+          <div class="card-header">
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">RATE A PROVIDER </h4>
+                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-sm btn-blue-grey" routerLink="/ratingsInsight"
+                  style="float: right;">Back</button>
+              </div>
+            </div>
+            <hr>
+          </div>
+
+          <div class="card-content">
+            <div class="card-body">
+
+              <form class="needs-validation" novalidate="">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="provider">Provider Name</label>
+
+                    <select class="form-control" id="provider" name="provider" [(ngModel)]="ratingDetails.user">
+                      <option value="">Select Provider</option>
+                      <option *ngFor="let provider of providers" [value]="provider.username">{{provider.first_name}}
+                        {{provider.last_name}}
+                      </option>
+                    </select>
+
+                    <div class="invalid-feedback">
+                      Provider Name is required.
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="service">Service Name</label>
+                    <select class="form-control" id="service" name="service"
+                      [(ngModel)]="ratingDetails.service_request">
+                      <option value="">Select Service</option>
+                      <option *ngFor="let service of services" [value]="service.id">{{service.service}}</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Service Name is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+
+                  <div class="col-md-6 mb-3">
+                    <label for="service">Rating </label>
+                    <select class="form-control" id="rating" name="rating" [(ngModel)]="ratingDetails.rating_score">
+                      <option value="">Select Rating</option>
+                      <option value="1">Very Bad</option>
+                      <option value="2">Bad</option>
+                      <option value="3">Fair</option>
+                      <option value="4">Good</option>
+                      <option value="5">Excellent</option>
+                    </select>
+
+                    <div class="invalid-feedback">
+                      Rating is Required
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="review">Review</label>
+                    <textarea class="form-control" id="review" name="review" [(ngModel)]="ratingDetails.review" required
+                      cols="5" rows="5">
+                    </textarea>
+                    <div class="invalid-feedback" style="width: 100%;">
+                      Your Review is required.
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <hr class="mb-2">
+                <button class="btn btn-sm btn-info btn-lg mr-1" type="button"
+                  (click)="handleRatingCreation()">Create</button>
+              </form>
+
+            </div>
+          </div>
+        </div>

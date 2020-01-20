@@ -1,0 +1,75 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">
+      Ratings By Services
+    </h4>
+  </div>
+  <div class="card-content">
+    <div class="table-responsive">
+      <table id="open-trade" class="table table-hover table-xl  open-orders"
+        *ngIf="dataSourceRatingServices.length === 0; else noItems2">
+        <thead>
+          <tr>
+            <th>
+              Service Rated
+            </th>
+            <th>
+              Description
+            </th>
+            <th>
+              Ratings
+            </th>
+            <th>
+              Action
+            </th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rating of dataSourceRatingServices">
+            <td class="unit">
+              0.725
+            </td>
+            <td class="no-unit">
+              0.200
+            </td>
+            <td class="exp-amt" (click)="handleRatingView('1')">
+              <i class="la la-star"></i>
+              <i class="la la-star"></i>
+              <i class="la la-star"></i>
+              <i class="la la-star"></i>
+            </td>
+            <td class="type" (click)="handleRatingView('1')">
+              <i class="la la-link success font-large-1" style="cursor: pointer;"
+                (click)="handleNavigation(row.id)"></i>
+              <i class="la la-trash danger font-large-1" (click)="handleDelete(element.id)"
+                style="cursor: pointer;"></i>
+            </td>
+          </tr>
+          <tr>
+            <td class="unit" (click)="handleRatingView('1')">
+              0.725
+            </td>
+            <td class="no-unit" (click)="handleRatingView('1')">
+              0.200
+            </td>
+            <td class="exp-amt" (click)="handleRatingView('1')">
+              <i class="la la-star"></i>
+              <i class="la la-star"></i>
+              <i class="la la-star"></i>
+              <i class="la la-star"></i>
+            </td>
+            <td class="type">
+              <i class="la la-link success font-large-1" style="cursor: pointer;" (click)="handleRatingView('1')"></i>
+              <i class="la la-trash danger font-large-1" (click)="handleRatingDelete('1')" style="cursor: pointer;"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noItems2>
+        <mat-card class="text-center">No Items Available</mat-card>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

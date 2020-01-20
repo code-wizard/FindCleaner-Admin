@@ -1,0 +1,136 @@
+<div class="content-body">
+  <div class="row" style="margin-bottom: 2em;">
+    <div class="col-md-12 ">
+      <!-- <button type="button" class="btn btn-outline-primary round pull-right"
+        routerLink="/ratingsInsight/pages/1/search?/1">Rate
+        A
+        Provider</button> -->
+    </div>
+  </div>
+  <section id="all-transactions">
+    <div class="row">
+      <div [ngClass]="{'col-md-8 offset-md-2' : wholeListView, 'col-md-4': wholeListView === false}">
+        <div class="card" style="max-height: 500px; overflow: auto;">
+          <div class="card-header">
+            <h4 class="card-title">Rated Users</h4>
+            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+            <div class="heading-elements">
+
+            </div>
+          </div>
+          <div class="card-content">
+            <div id="new-orders" class="media-list position-relative">
+              <div class="table-responsive">
+                <table id="new-orders-table" class="table table-hover mb-0"
+                  *ngIf="dataSourceUsersWithRatings.length === 0; else noItems">
+                  <thead>
+                    <tr>
+                      <th class="border-top-0">Index</th>
+                      <th class="border-top-0">Full Name</th>
+                      <th class="border-top-0" *ngIf="wholeListView">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- [ngClass]="{'activeRatedList': pageNumber === id}" -->
+                    <tr *ngFor="let provider of dataSourceUsersWithRatings;">
+                      <td class="text-truncate p-1 ">
+                        <ul class="list-unstyled users-list m-0 ml-2">
+                          <li data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="John Doe"
+                            class="avatar avatar-sm pull-up">
+                            <img class="media-object rounded-circle"
+                              src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="Avatar">
+                          </li>
+
+                        </ul>
+                      </td>
+                      <td class="text-truncate">Ayotunde Olubiyo
+                        <span style="display: block;">
+                          <small>
+                            Home Cleaning (Provider)
+                          </small>
+                        </span>
+                      </td>
+
+                    </tr>
+
+                    <tr (click)="handleViewRatingList()" class="activeRatedList">
+                      <td class="text-truncate p-1 ">
+                        <ul class="list-unstyled users-list m-0 ml-2">
+                          <li data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="John Doe"
+                            class="avatar avatar-sm pull-up">
+                            <img class="media-object rounded-circle"
+                              src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="Avatar">
+                          </li>
+                          <li class="avatar avatar-sm">
+                            <span class="badge badge-info badgesUpdate">IN-12</span>
+                          </li>
+                        </ul>
+                      </td>
+                      <td class="text-truncate">
+                        <span style="font-size: 16px;">Ayotunde Olubiyo</span>
+
+                        <span style="display: block;">
+                          <small>
+                            Home Cleaning (Provider)
+                          </small>
+                        </span>
+                      </td>
+                      <td class="text-truncate" *ngIf="wholeListView">
+                        <button class="btn btn-outline-primary btn-round btn-sm"> View Ratings</button>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <ng-template #noItems>
+                  <mat-card class="text-center">No Items Available</mat-card>
+                </ng-template>
+
+                <div class="mat-paginator-outer-container">
+                  <div class="mat-paginator-container">
+
+                    <div class="mat-paginator-range-actions">
+                      <div class="mat-paginator-range-label">{{paginationUrl.viewCountStart}} -
+                        {{paginationUrl.viewCountEnd}}
+                        of
+                        {{totalItemCount}}</div>
+
+                      <button class="mat-paginator-navigation-previous mat-icon-button" mat-icon-button="" type="button"
+                        [disabled]="!paginationUrl?.previous" (click)="handlePagination('previous')">
+                        <span class="mat-button-wrapper">
+                          <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+                          </svg>
+                        </span>
+                        <div class="mat-button-ripple mat-ripple mat-button-ripple-round">
+                        </div>
+                        <div class="mat-button-focus-overlay"></div>
+                      </button>
+
+                      <button class="mat-paginator-navigation-next mat-icon-button" mat-icon-button="" type="button"
+                        [disabled]="!paginationUrl?.next" (click)="handlePagination('next')">
+                        <span class="mat-button-wrapper">
+                          <svg class="mat-paginator-icon" focusable="false" viewBox="0 0 24 24">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+                          </svg>
+                        </span>
+                        <div class="mat-button-ripple mat-ripple mat-button-ripple-round"></div>
+                        <div class="mat-button-focus-overlay"></div>
+                      </button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8 col-md-8">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
+  </section>
+</div>

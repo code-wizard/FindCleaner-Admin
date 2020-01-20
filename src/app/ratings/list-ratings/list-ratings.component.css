@@ -1,0 +1,17 @@
+.badgesUpdate {
+  background-color: #00BCD4 !important;
+  color: #FFFFFF !important;
+  font-size: 85% !important;
+}
+
+
+tr:hover {
+  cursor: pointer;
+  background-color: #00BCD4;
+}
+
+
+.activeRatedList {
+  background-color: #00BCD4;
+  color: white;
+}
