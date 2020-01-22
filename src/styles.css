@@ -24,6 +24,9 @@
 @import "assets/css/pages/login-register.css";
 
 
+/* Ratings */
+@import "assets/css/pages/crypto-trading.css";
+@import "assets/vendors/css/cryptocoins/cryptocoins.css";
 
 
 #steady-spinner {

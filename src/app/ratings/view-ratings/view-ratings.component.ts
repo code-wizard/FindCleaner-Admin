@@ -9,13 +9,7 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./view-ratings.component.css"]
 })
 export class ViewRatingsComponent implements OnInit {
-  ratingDetails = {
-    user: "",
-    service_request: "",
-    review: "",
-    rating_score: ""
-  };
-
+  ratingDetails;
   ratingId;
 
   constructor(
@@ -25,12 +19,11 @@ export class ViewRatingsComponent implements OnInit {
   ) {
     this.route.params.subscribe(res => {
       const { ratingId } = res;
-      this.ratingId = "2";
-      console.log(ratingId, "dsj");
+      this.ratingId = ratingId;
       const apiUrl = `${this.endpoints.ratingUrl.getUpdateDeleteRating}/${ratingId}`;
       this.endpoints.fetch(apiUrl).subscribe(res => {
-        console.log(res, "onfetch of each arating");
-        // this.ratingDetails = { ...res };
+        // console.log(res, "onfetch of each arating");
+        this.ratingDetails = res;
       });
     });
   }

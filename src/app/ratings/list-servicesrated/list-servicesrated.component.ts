@@ -11,6 +11,16 @@ import { GeneralService } from "src/app/services/general.service";
 })
 export class ListServicesratedComponent implements OnInit {
   dataSourceRatingServices = [];
+  totalItemCount = 0;
+  paginationUrl = {
+    next: "",
+    prev: "",
+    viewCountStart: 1,
+    viewCountEnd: 10
+  };
+  pageNumber = 1;
+  wholeListView = true;
+  userId;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,15 +30,36 @@ export class ListServicesratedComponent implements OnInit {
     private router: Router
   ) {
     this.route.params.subscribe(res => {
+      const { userId } = res;
+      this.userId = userId;
+      this.getUsersWithRatings(userId);
       this.list.wholeListView = false;
     });
+  }
+
+  private getUsersWithRatings(userId) {
+    const apiUrl = `${this.endpoints.ratingUrl.fetchRatingByUser}/${userId}`;
+    this.endpoints.fetch(apiUrl).subscribe(res => {
+      // console.log(res, " allrating for user");
+      this.setDataSource(res);
+    });
+  }
+
+  private setDataSource(res) {
+    const responseWithRatingArr = res.map((element, i) => {
+      let ratingArr = Array(Number(element.rating_score))
+        .fill(0)
+        .map((x, i) => i);
+      return { ...res[i], ratingArr };
+    });
+    this.dataSourceRatingServices = responseWithRatingArr;
   }
 
   ngOnInit() {}
 
   handleRatingView(id) {
     this.router.navigate([
-      "/ratingsInsight/pages/1/search?/1/viewRatings/",
+      `/ratingsInsight/pages/1/search?/${this.userId}/viewRatings/`,
       id
     ]);
   }
@@ -44,6 +75,7 @@ export class ListServicesratedComponent implements OnInit {
               "Rating Deleted",
               "Deletion Successful"
             );
+            this.router.navigate([`/ratingsInsight/pages/1/`]);
           },
           error => {
             console.log(error, "error on delete");

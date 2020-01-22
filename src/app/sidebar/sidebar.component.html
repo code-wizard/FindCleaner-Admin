@@ -20,6 +20,11 @@
           routerLink="/transactionsInsight/pages/1"><i class="la la-shopping-cart"></i><span class="menu-title"
             data-i18n="">Transactions Insight</span></a>
       </li>
+      <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/ratingsInsight')}"><a
+          routerLink="/ratingsInsight/pages/1"><i class="la la-line-chart"></i><span class="menu-title"
+            data-i18n="">Ratings
+            Insight</span></a>
+      </li>
       <li class=" nav-item" [ngClass]="{'active open': (url | async )?.includes('/sessions')}"><a
           routerLink="/sessions/pages/1"><i class="la la-credit-card"></i><span class="menu-title" data-i18n="">Sessions
             Management</span></a>

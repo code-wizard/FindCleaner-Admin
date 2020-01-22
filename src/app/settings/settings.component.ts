@@ -50,8 +50,8 @@ export class SettingsComponent implements OnInit {
     } else {
       this.genServ.sweetAlertCreate("New Service").then(response => {
         if (response.value) {
-          const apiUrl = this.endpoints.serviceUrl.creatService;
-          this.endpoints.register(apiUrl, serviceDetails).subscribe(
+          const apiUrl = this.endpoints.serviceUrl.createService;
+          this.endpoints.create(apiUrl, serviceDetails).subscribe(
             res => {
               this.genServ
                 .sweetAlertSucess("Service Created", "Creation Successful")

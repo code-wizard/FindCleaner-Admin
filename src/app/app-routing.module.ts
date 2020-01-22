@@ -13,6 +13,10 @@ import { AdminUsersComponent } from "./admin-users/admin-users.component";
 import { AdminUserViewComponent } from "./admin-users/admin-user-view/admin-user-view.component";
 import { AdminProfileComponent } from "./admin-users/admin-profile/admin-profile.component";
 import { AddAdminComponent } from "./admin-users/add-admin/add-admin.component";
+import { RatingsComponent } from "./ratings/ratings.component";
+import { ViewRatingsComponent } from "./ratings/view-ratings/view-ratings.component";
+import { AddRatingsComponent } from "./ratings/add-ratings/add-ratings.component";
+import { ListServicesratedComponent } from "./ratings/list-servicesrated/list-servicesrated.component";
 
 const routes: Routes = [
   {
@@ -60,7 +64,28 @@ const routes: Routes = [
     component: AdminProfileComponent,
     canActivate: [AuthGuard]
   },
-
+  {
+    path: "ratingsInsight/pages/:pageNumber",
+    component: RatingsComponent,
+    children: [
+      {
+        path: "search?/:userId",
+        component: ListServicesratedComponent,
+        children: [
+          {
+            path: "viewRatings/:ratingId",
+            component: ViewRatingsComponent
+          }
+        ]
+      }
+    ],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "ratingsInsight/rate-a-provider",
+    component: AddRatingsComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: "sessions/pages/:pageNumber",
     component: SessionsComponent,
@@ -70,9 +95,9 @@ const routes: Routes = [
     path: "login",
     component: LoginComponent
   },
-  { path: "settings", component: SettingsComponent, canActivate: [AuthGuard] },
-  { path: "", redirectTo: "adminDashboard", pathMatch: "full" },
-  { path: "**", redirectTo: "adminDashboard", pathMatch: "full" }
+  { path: "settings", component: SettingsComponent, canActivate: [AuthGuard] }
+  // { path: "", redirectTo: "adminDashboard", pathMatch: "full" },
+  // { path: "**", redirectTo: "adminDashboard", pathMatch: "full" }
 ];
 
 @NgModule({

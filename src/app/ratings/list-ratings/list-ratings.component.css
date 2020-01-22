@@ -5,13 +5,12 @@
 }
 
 
-tr:hover {
-  cursor: pointer;
+.activeRatedList {
   background-color: #00BCD4;
+  color: white;
 }
 
-
-.activeRatedList {
+.activeRatedList:hover {
   background-color: #00BCD4;
   color: white;
 }

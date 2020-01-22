@@ -33,7 +33,15 @@ export class EndpointsService {
   };
 
   public serviceUrl = {
-    creatService: "services/new-service/"
+    createService: "services/new-service/",
+    getAllServices: "services/all-services"
+  };
+
+  public ratingUrl = {
+    createRating: "rating/new",
+    getUpdateDeleteRating: "rating/update",
+    fetchRatingByUser: "rating/user",
+    fetchUsersWithRatings: "dashboard/rated-users/all"
   };
 
   private settingsUrl = {
@@ -49,7 +57,7 @@ export class EndpointsService {
 
   constructor(private http: HttpClient) {}
 
-  register(apiUrl, credentials) {
+  create(apiUrl, credentials) {
     try {
       return this.http.post(`${this.host}${apiUrl}`, credentials);
     } catch (error) {

@@ -1,13 +1,15 @@
-<div class="card">
+<div class="card" style="max-height: 700px; overflow: auto;">
   <div class="card-header">
     <h4 class="card-title">
-      Ratings By Services
+      Ratings By Services - <i class="primary">{{dataSourceRatingServices[0]?.user.first_name}}
+        {{dataSourceRatingServices[0]?.user.last_name}}
+      </i>
     </h4>
   </div>
   <div class="card-content">
     <div class="table-responsive">
       <table id="open-trade" class="table table-hover table-xl  open-orders"
-        *ngIf="dataSourceRatingServices.length === 0; else noItems2">
+        *ngIf="dataSourceRatingServices.length !== 0; else noItems">
         <thead>
           <tr>
             <th>
@@ -26,47 +28,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let rating of dataSourceRatingServices">
-            <td class="unit">
-              0.725
+          <tr *ngFor="let rating of dataSourceRatingServices" style="cursor: pointer;">
+            <td class="unit" (click)="handleRatingView(rating.id)">
+              {{rating.service_request.service_name | titlecase}}
             </td>
-            <td class="no-unit">
-              0.200
+            <td class="no-unit" (click)="handleRatingView(rating.id)">
+              {{rating.service_request.requirement_description | titlecase | shorten: 'name'}}
             </td>
-            <td class="exp-amt" (click)="handleRatingView('1')">
-              <i class="la la-star"></i>
-              <i class="la la-star"></i>
-              <i class="la la-star"></i>
-              <i class="la la-star"></i>
-            </td>
-            <td class="type" (click)="handleRatingView('1')">
-              <i class="la la-link success font-large-1" style="cursor: pointer;"
-                (click)="handleNavigation(row.id)"></i>
-              <i class="la la-trash danger font-large-1" (click)="handleDelete(element.id)"
-                style="cursor: pointer;"></i>
-            </td>
-          </tr>
-          <tr>
-            <td class="unit" (click)="handleRatingView('1')">
-              0.725
-            </td>
-            <td class="no-unit" (click)="handleRatingView('1')">
-              0.200
-            </td>
-            <td class="exp-amt" (click)="handleRatingView('1')">
-              <i class="la la-star"></i>
-              <i class="la la-star"></i>
-              <i class="la la-star"></i>
-              <i class="la la-star"></i>
+            <td class="exp-amt" (click)="handleRatingView(rating.id)">
+              <i class="la la-star" *ngFor="let data of rating.ratingArr"></i>
             </td>
             <td class="type">
-              <i class="la la-link success font-large-1" style="cursor: pointer;" (click)="handleRatingView('1')"></i>
-              <i class="la la-trash danger font-large-1" (click)="handleRatingDelete('1')" style="cursor: pointer;"></i>
+              <i class="la la-link success font-large-1" style="cursor: pointer;"
+                (click)="handleRatingView(rating.id)"></i>
+              <i class="la la-trash danger font-large-1" (click)="handleRatingDelete(rating.id)"
+                style="cursor: pointer;"></i>
             </td>
           </tr>
         </tbody>
       </table>
-      <ng-template #noItems2>
+      <ng-template #noItems>
         <mat-card class="text-center">No Items Available</mat-card>
       </ng-template>
     </div>

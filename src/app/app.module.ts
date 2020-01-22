@@ -46,6 +46,11 @@ import { AdminUsersComponent } from "./admin-users/admin-users.component";
 import { AdminUserViewComponent } from "./admin-users/admin-user-view/admin-user-view.component";
 import { AdminProfileComponent } from "./admin-users/admin-profile/admin-profile.component";
 import { AddAdminComponent } from "./admin-users/add-admin/add-admin.component";
+import { RatingsComponent } from './ratings/ratings.component';
+import { ViewRatingsComponent } from './ratings/view-ratings/view-ratings.component';
+import { ListRatingsComponent } from './ratings/list-ratings/list-ratings.component';
+import { AddRatingsComponent } from './ratings/add-ratings/add-ratings.component';
+import { ListServicesratedComponent } from './ratings/list-servicesrated/list-servicesrated.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +71,12 @@ import { AddAdminComponent } from "./admin-users/add-admin/add-admin.component";
     AdminUsersComponent,
     AdminUserViewComponent,
     AdminProfileComponent,
-    AddAdminComponent
+    AddAdminComponent,
+    RatingsComponent,
+    ViewRatingsComponent,
+    ListRatingsComponent,
+    AddRatingsComponent,
+    ListServicesratedComponent
   ],
   imports: [
     AppRoutingModule,

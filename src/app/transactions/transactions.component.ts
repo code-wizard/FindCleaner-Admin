@@ -202,6 +202,7 @@ export class TransactionsComponent implements OnInit {
         this.endpoints.deleteTransaction(id).subscribe(
           res => {
             console.log(res);
+            this.getTransactions();
             this.genServ.sweetAlertSucess(
               "Transaction Deleted",
               "Deletion Successful"

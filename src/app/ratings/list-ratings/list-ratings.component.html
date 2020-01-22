@@ -22,7 +22,7 @@
             <div id="new-orders" class="media-list position-relative">
               <div class="table-responsive">
                 <table id="new-orders-table" class="table table-hover mb-0"
-                  *ngIf="dataSourceUsersWithRatings.length === 0; else noItems">
+                  *ngIf="dataSourceUsersWithRatings.length !== 0; else noItems">
                   <thead>
                     <tr>
                       <th class="border-top-0">Index</th>
@@ -31,30 +31,9 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <!-- [ngClass]="{'activeRatedList': pageNumber === id}" -->
-                    <tr *ngFor="let provider of dataSourceUsersWithRatings;">
-                      <td class="text-truncate p-1 ">
-                        <ul class="list-unstyled users-list m-0 ml-2">
-                          <li data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="John Doe"
-                            class="avatar avatar-sm pull-up">
-                            <img class="media-object rounded-circle"
-                              src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="Avatar">
-                          </li>
-
-                        </ul>
-                      </td>
-                      <td class="text-truncate">Ayotunde Olubiyo
-                        <span style="display: block;">
-                          <small>
-                            Home Cleaning (Provider)
-                          </small>
-                        </span>
-                      </td>
-
-                    </tr>
-
-                    <tr (click)="handleViewRatingList()" class="activeRatedList">
-                      <td class="text-truncate p-1 ">
+                    <tr *ngFor="let user of dataSourceUsersWithRatings; let i = index"
+                      [ngClass]="{'activeRatedList': clickedId == user.rating.user.id}">
+                      <td class="text-truncate p-1 " (click)="handleViewRatingList(user.rating.user.id)">
                         <ul class="list-unstyled users-list m-0 ml-2">
                           <li data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="John Doe"
                             class="avatar avatar-sm pull-up">
@@ -62,20 +41,23 @@
                               src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="Avatar">
                           </li>
                           <li class="avatar avatar-sm">
-                            <span class="badge badge-info badgesUpdate">IN-12</span>
+                            <span class="badge" [ngClass]="{'badgesUpdate': clickedId != user.rating.user.id,
+                            'badge-info': clickedId ==
+                            user.rating.user.id}">IN-{{i + paginationUrl.viewCountStart}}</span>
                           </li>
                         </ul>
                       </td>
-                      <td class="text-truncate">
-                        <span style="font-size: 16px;">Ayotunde Olubiyo</span>
+                      <td class="text-truncate" (click)="handleViewRatingList(user.rating.user.id)">
+                        <span style="font-size: 16px;"> {{user.first_name}} {{user.last_name}}</span>
 
                         <span style="display: block;">
                           <small>
-                            Home Cleaning (Provider)
+                            {{user.account_type | titlecase}}
                           </small>
                         </span>
                       </td>
-                      <td class="text-truncate" *ngIf="wholeListView">
+                      <td class="text-truncate" *ngIf="wholeListView"
+                        (click)="handleViewRatingList(user.rating.user.id)">
                         <button class="btn btn-outline-primary btn-round btn-sm"> View Ratings</button>
                       </td>
 
