@@ -41,7 +41,8 @@ export class EndpointsService {
     createRating: "rating/new",
     getUpdateDeleteRating: "rating/update",
     fetchRatingByUser: "rating/user",
-    fetchUsersWithRatings: "dashboard/rated-users/all"
+    fetchUsersWithRatings: "dashboard/rated-users/all",
+    filterRating: "dashboard/rated-users/all?search="
   };
 
   private settingsUrl = {
@@ -229,6 +230,16 @@ export class EndpointsService {
     }
   }
   // Settings Endpoints Ends
+
+  fetchFilteredRatings(params) {
+    try {
+      return this.http.get(
+        `${this.host}${this.ratingUrl.filterRating}${params}`
+      );
+    } catch (error) {
+      alert(error);
+    }
+  }
 
   // Paginating
   fetchPaginationPage(url) {

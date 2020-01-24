@@ -72,6 +72,20 @@ export class ListRatingsComponent implements OnInit {
     this.dataSourceUsersWithRatings = results;
   }
 
+  applyFilter(filterValue: string) {
+    if (filterValue !== "all") {
+      this.enpoints
+        .fetchFilteredRatings(filterValue.trim().toLowerCase())
+        .subscribe(res => {
+          // console.log(res, "filted res");
+          this.setDataSource(res);
+        });
+    } else {
+      this.getUsersWithRatings();
+      this.setActiveClassByUrl();
+    }
+  }
+
   handleViewRatingList(userId) {
     this.router.navigate(["/ratingsInsight/pages/1/search?/", userId]);
     this.setActiveClassByUrl(userId);
